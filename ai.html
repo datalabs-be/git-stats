@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats Portfolio: AI-assisted commits</title>
+	<meta name="description" content="The share of commits that name an AI coding assistant in 9 repositories, quarter by quarter. Jul–Sep 2026: screenshotter, 1.4%.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="GitStats Portfolio: AI-assisted commits">
+	<meta property="og:description" content="The share of commits that name an AI coding assistant in 9 repositories, quarter by quarter. Jul–Sep 2026: screenshotter, 1.4%.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="GitStats Portfolio: AI-assisted commits">
+	<meta name="twitter:description" content="The share of commits that name an AI coding assistant in 9 repositories, quarter by quarter. Jul–Sep 2026: screenshotter, 1.4%.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="sortable.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="index.html" class="nav-brand">GitStats</a>
+            <ul>
+            <li><a href="index.html">GitStats Portfolio</a></li>
+            <li><a href="ai.html" class="active" aria-current="page">AI-assisted commits</a></li><li><a href="organizations.html">Organizations</a></li>
+            </ul>
+            <div class="nav-right">
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>AI-assisted commits</h1><p class="portfolio-subtitle">9 repositories &middot; generated by gitstats 2.12.2 on 2026-11-16 18:06:55</p><p class="section-note">Commits that name an AI coding assistant: as their author, as a co-author, or in the line it signs with. These are lower bounds. An assistant that leaves no mark in a commit is not counted, so a share near zero says that commits are not signed, not that no assistant is used. And a mark does not say how much of the commit the assistant wrote.</p><dl class="stat-tiles" style="--cols: 3; --cols-md: 3; --cols-sm: 2; --span-sm: 2"><div class="stat-tile"><dt>Repositories</dt><dd class="stat-value">3 of 9</dd><dd class="stat-note">name an assistant in the last four quarters</dd></div><div class="stat-tile"><dt>Largest Share</dt><dd class="stat-value">1.4%</dd><dd class="stat-note">screenshotter, Jul–Sep 2026</dd></div><div class="stat-tile"><dt>Named Most Widely</dt><dd class="stat-value">GitHub Copilot</dd><dd class="stat-note">in 4 of 9 repositories</dd></div></dl><h2>By quarter</h2><p class="section-note">The share of each quarter&rsquo;s commits that name an assistant, and under it those commits and all of them. The darker, the larger the share. The largest share in the last quarter comes first, of the repositories with 30 commits or more in it; then the others. The assistants named most are those of all the history.</p><div class="table-scroll"><table class="ai-grid"><tr><th>Repository</th><th class="num">Oct–Dec 2025</th><th class="num">Jan–Mar 2026</th><th class="num">Apr–Jun 2026</th><th class="num">Jul–Sep 2026</th><th>Named most (all time)</th></tr><tr><td><a href="screenshotter/authors.html#ai-assisted_commits">screenshotter</a></td><td class="share" style="--share-strength: 0%">0%<small>0 / 26</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 20</small></td><td class="share"><small>no commits</small></td><td class="share" style="--share-strength: 20%">1.4%<small>1 / 70</small></td><td>GitHub Copilot</td></tr><tr><td><a href="portal/authors.html#ai-assisted_commits">portal</a></td><td class="share" style="--share-strength: 0%">0%<small>0 / 257</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 132</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 156</small></td><td class="share" style="--share-strength: 18%">0.9%<small>2 / 231</small></td><td>GitHub Copilot</td></tr><tr><td><a href="mercator/authors.html#ai-assisted_commits">mercator</a></td><td class="share" style="--share-strength: 0%">0%<small>0 / 14</small></td><td class="share"><small>no commits</small></td><td class="share" style="--share-strength: 32%">7.1%<small>1 / 14</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 48</small></td><td>GitHub Copilot</td></tr><tr><td><a href="centr-crawler-design/authors.html">centr-crawler-design</a></td><td class="share" style="--share-strength: 0%">0%<small>0 / 80</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 57</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 7</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 23</small></td><td>&ndash;</td></tr><tr><td><a href="java-base-image/authors.html#ai-assisted_commits">java-base-image</a></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 8</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 21</small></td><td>GitHub Copilot</td></tr><tr><td><a href="mercator_data_processor/authors.html">mercator_data_processor</a></td><td class="share"><small>no commits</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 47</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 11</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 4</small></td><td>&ndash;</td></tr><tr><td><a href="dl_infra/authors.html">dl_infra</a></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td>&ndash;</td></tr><tr><td><a href="limited_content_classifier/authors.html">limited_content_classifier</a></td><td class="share"><small>no commits</small></td><td class="share" style="--share-strength: 0%">0%<small>0 / 62</small></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td>&ndash;</td></tr><tr><td><a href="mercator-dashboard/authors.html">mercator-dashboard</a></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td class="share"><small>no commits</small></td><td>&ndash;</td></tr></table></div><script>document.querySelectorAll('table.ai-grid').forEach(function (table) { var box = table.parentElement, cells = table.rows[0].cells; var last = cells[cells.length - 2]; if (box.scrollWidth > box.clientWidth) { box.scrollLeft = last.offsetLeft + last.offsetWidth - box.clientWidth; } });</script><details class="table-details"><summary>What is counted</summary><ul><li>The author is an assistant's own account, such as the Copilot coding agent, Devin or Cursor's agent.</li><li>A <code>Co-authored-by:</code> line names an assistant, as Claude Code, Copilot, Cursor, Codex, Aider and others add when they commit for a person. A review bot whose suggestion was applied is named the same way.</li><li>An <code>Assisted-by:</code> or <code>Generated-by:</code> line names an assistant.</li><li>The message has the line an assistant leaves in it, such as &ldquo;Generated with [Claude Code]&rdquo; or the link to a Devin or Codex session.</li></ul><p>Accounts and addresses are matched, not first names: a person called Claude, Devin or Jules is not an assistant.</p></details><h2>Data</h2><p class="section-note">The counts behind this page, for each complete month and quarter the reports cover: <a href="ai.json">ai.json</a>, <a href="ai.csv">ai.csv</a>. Each quarter is also kept as it was first published, since commits written in a quarter can still be merged after it ends; a repository added to the portfolio later is kept as it was when it was added: <a href="ai/2026-Q3.json">Jul–Sep 2026</a>.</p></main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body>
+</html>

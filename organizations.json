@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "title": "Commits by organization",
+  "description": "Commits by the domain of the author's email address, added up across the repositories. An organization's commits in the last 12 months are those of the 12 months that end with each repository's last commit. A domain only one person commits from is counted apart, as are mail providers anyone can sign up for, code hosts' private noreply addresses and bots. A domain says where an address is, not who paid for the work.",
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:55+01:00",
+  "quarters": [
+    "2025-Q4",
+    "2026-Q1",
+    "2026-Q2",
+    "2026-Q3"
+  ],
+  "organizations": [
+    {
+      "organization": "bosteels.eu",
+      "commits_last_12mo": 504,
+      "commits": 652,
+      "repositories": [
+        "centr-crawler-design",
+        "java-base-image",
+        "limited_content_classifier",
+        "mercator_data_processor",
+        "portal",
+        "screenshotter"
+      ],
+      "by_repository": [
+        {
+          "name": "portal",
+          "report": "portal/index.html",
+          "commits": 264,
+          "commits_last_12mo": 186,
+          "addresses": 2,
+          "first_commit": "2025-10-11",
+          "last_commit": "2026-11-15"
+        },
+        {
+          "name": "centr-crawler-design",
+          "report": "centr-crawler-design/index.html",
+          "commits": 164,
+          "commits_last_12mo": 94,
+          "addresses": 2,
+          "first_commit": "2025-10-26",
+          "last_commit": "2026-11-01"
+        },
+        {
+          "name": "mercator_data_processor",
+          "report": "mercator_data_processor/index.html",
+          "commits": 67,
+          "commits_last_12mo": 67,
+          "addresses": 2,
+          "first_commit": "2026-01-25",
+          "last_commit": "2026-11-15"
+        },
+        {
+          "name": "screenshotter",
+          "report": "screenshotter/index.html",
+          "commits": 64,
+          "commits_last_12mo": 64,
+          "addresses": 2,
+          "first_commit": "2025-12-27",
+          "last_commit": "2026-11-14"
+        },
+        {
+          "name": "limited_content_classifier",
+          "report": "limited_content_classifier/index.html",
+          "commits": 61,
+          "commits_last_12mo": 61,
+          "addresses": 2,
+          "first_commit": "2026-01-04",
+          "last_commit": "2026-03-09"
+        },
+        {
+          "name": "java-base-image",
+          "report": "java-base-image/index.html",
+          "commits": 32,
+          "commits_last_12mo": 32,
+          "addresses": 2,
+          "first_commit": "2026-06-13",
+          "last_commit": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "organization": "dnsbelgium.be",
+      "commits_last_12mo": 58,
+      "commits": 1006,
+      "repositories": [
+        "mercator"
+      ],
+      "by_repository": [
+        {
+          "name": "mercator",
+          "report": "mercator/index.html",
+          "commits": 1006,
+          "commits_last_12mo": 58,
+          "addresses": 9,
+          "first_commit": "2022-03-16",
+          "last_commit": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "organization": "ucll.be",
+      "commits_last_12mo": 0,
+      "commits": 196,
+      "repositories": [
+        "mercator"
+      ],
+      "by_repository": [
+        {
+          "name": "mercator",
+          "report": "mercator/index.html",
+          "commits": 196,
+          "commits_last_12mo": 0,
+          "addresses": 2,
+          "first_commit": "2023-03-30",
+          "last_commit": "2025-04-16"
+        }
+      ]
+    }
+  ],
+  "repositories": [
+    {
+      "name": "centr-crawler-design",
+      "report": "centr-crawler-design/index.html",
+      "commits": 167,
+      "by_kind": {
+        "organization": 159,
+        "one_person": 6,
+        "personal": 0,
+        "hidden": 2,
+        "unknown": 0,
+        "bot": 0
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 94
+        }
+      ]
+    },
+    {
+      "name": "dl_infra",
+      "report": "dl_infra/index.html",
+      "commits": 0,
+      "by_kind": {
+        "organization": 0,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "organizations_last_12mo": []
+    },
+    {
+      "name": "java-base-image",
+      "report": "java-base-image/index.html",
+      "commits": 29,
+      "by_kind": {
+        "organization": 21,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 6,
+        "unknown": 0,
+        "bot": 0
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 32
+        }
+      ]
+    },
+    {
+      "name": "limited_content_classifier",
+      "report": "limited_content_classifier/index.html",
+      "commits": 62,
+      "by_kind": {
+        "organization": 61,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 1
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 61
+        }
+      ]
+    },
+    {
+      "name": "mercator_data_processor",
+      "report": "mercator_data_processor/index.html",
+      "commits": 62,
+      "by_kind": {
+        "organization": 60,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 67
+        }
+      ]
+    },
+    {
+      "name": "mercator-dashboard",
+      "report": "mercator-dashboard/index.html",
+      "commits": 0,
+      "by_kind": {
+        "organization": 0,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "organizations_last_12mo": []
+    },
+    {
+      "name": "mercator",
+      "report": "mercator/index.html",
+      "commits": 76,
+      "by_kind": {
+        "organization": 64,
+        "one_person": 9,
+        "personal": 0,
+        "hidden": 2,
+        "unknown": 0,
+        "bot": 1
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "dnsbelgium.be",
+          "commits": 58
+        }
+      ]
+    },
+    {
+      "name": "portal",
+      "report": "portal/index.html",
+      "commits": 776,
+      "by_kind": {
+        "organization": 234,
+        "one_person": 11,
+        "personal": 0,
+        "hidden": 152,
+        "unknown": 0,
+        "bot": 379
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 186
+        }
+      ]
+    },
+    {
+      "name": "screenshotter",
+      "report": "screenshotter/index.html",
+      "commits": 116,
+      "by_kind": {
+        "organization": 42,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 22,
+        "unknown": 0,
+        "bot": 50
+      },
+      "organizations_last_12mo": [
+        {
+          "organization": "bosteels.eu",
+          "commits": 64
+        }
+      ]
+    }
+  ]
+}

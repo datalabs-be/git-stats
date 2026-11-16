@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "title": "How each repository compares",
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:55+01:00",
+  "quarters": [
+    "2025-Q4",
+    "2026-Q1",
+    "2026-Q2",
+    "2026-Q3"
+  ],
+  "measures": [
+    {
+      "id": "commits",
+      "label": "Commits",
+      "definition": "Commits in the 12 months up to the last one; bots' commits are left out."
+    },
+    {
+      "id": "authors",
+      "label": "Contributors",
+      "definition": "People who made a commit in those 12 months; bots are left out."
+    },
+    {
+      "id": "new_authors",
+      "label": "New contributors",
+      "definition": "Of them, those whose first commit to the project was in those 12 months."
+    },
+    {
+      "id": "half_of_commits",
+      "label": "Half the commits by",
+      "definition": "The fewest people whose commits add up to half of those 12 months': how far the work is spread."
+    },
+    {
+      "id": "organizations",
+      "label": "Organizations",
+      "definition": "Organizations whose addresses committed in those 12 months, by email domain; a domain only one person uses is not one."
+    },
+    {
+      "id": "ai_share",
+      "label": "AI-assisted",
+      "definition": "The share of the last four quarters' commits that name an AI coding assistant; a lower bound."
+    }
+  ],
+  "repositories": [
+    {
+      "name": "centr-crawler-design",
+      "values": {
+        "commits": 100.0,
+        "authors": 3.0,
+        "new_authors": 2.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.0
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            2,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            3,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            4,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            4,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "centr-crawler-design/compare.html",
+      "headline": "centr-crawler-design is 2nd of the 9 repositories for commits."
+    },
+    {
+      "name": "dl_infra",
+      "values": {
+        "commits": 14.0,
+        "authors": 1.0,
+        "new_authors": 1.0,
+        "half_of_commits": 1.0,
+        "organizations": 0.0,
+        "ai_share": null
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            8,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            8,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            6,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            8,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": null
+        }
+      },
+      "insights": [],
+      "page": "dl_infra/compare.html",
+      "headline": "dl_infra ranks below most of the 9 repositories on every measure here; its highest place is 6th, shared, for new contributors."
+    },
+    {
+      "name": "java-base-image",
+      "values": {
+        "commits": 42.0,
+        "authors": 4.0,
+        "new_authors": 4.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.0
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            7,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            4,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "java-base-image/compare.html",
+      "headline": "java-base-image had more new contributors in the last 12 months than any other of the 9 repositories."
+    },
+    {
+      "name": "limited_content_classifier",
+      "values": {
+        "commits": 61.0,
+        "authors": 2.0,
+        "new_authors": 2.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.0
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            6,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            7,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            4,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            4,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "limited_content_classifier/compare.html",
+      "headline": "limited_content_classifier's highest place among the 9 repositories is 1st, shared, for organizations committing."
+    },
+    {
+      "name": "mercator_data_processor",
+      "values": {
+        "commits": 69.0,
+        "authors": 3.0,
+        "new_authors": 3.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.0
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            5,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            3,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            2,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            4,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "mercator_data_processor/compare.html",
+      "headline": "mercator_data_processor's highest place among the 9 repositories is 1st, shared, for organizations committing."
+    },
+    {
+      "name": "mercator-dashboard",
+      "values": {
+        "commits": 1.0,
+        "authors": 1.0,
+        "new_authors": 1.0,
+        "half_of_commits": 1.0,
+        "organizations": 0.0,
+        "ai_share": null
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            9,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            8,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            6,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            8,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": null
+        }
+      },
+      "insights": [],
+      "page": "mercator-dashboard/compare.html",
+      "headline": "mercator-dashboard ranks below most of the 9 repositories on every measure here; its highest place is 6th, shared, for new contributors."
+    },
+    {
+      "name": "mercator",
+      "values": {
+        "commits": 72.0,
+        "authors": 4.0,
+        "new_authors": 1.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.013157894736842105
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            4,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            6,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            1,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "mercator/compare.html",
+      "headline": "mercator had a larger share of commits that name an AI coding assistant than any other of the 7 repositories."
+    },
+    {
+      "name": "portal",
+      "values": {
+        "commits": 337.0,
+        "authors": 3.0,
+        "new_authors": 1.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.002577319587628866
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            3,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            6,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            3,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "portal/compare.html",
+      "headline": "portal had more commits in the last 12 months than any other of the 9 repositories."
+    },
+    {
+      "name": "screenshotter",
+      "values": {
+        "commits": 89.0,
+        "authors": 3.0,
+        "new_authors": 3.0,
+        "half_of_commits": 1.0,
+        "organizations": 1.0,
+        "ai_share": 0.008620689655172414
+      },
+      "ranks": {
+        "commits": {
+          "group": null,
+          "all": [
+            3,
+            9
+          ]
+        },
+        "authors": {
+          "group": null,
+          "all": [
+            3,
+            9
+          ]
+        },
+        "new_authors": {
+          "group": null,
+          "all": [
+            2,
+            9
+          ]
+        },
+        "half_of_commits": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "organizations": {
+          "group": null,
+          "all": [
+            1,
+            9
+          ]
+        },
+        "ai_share": {
+          "group": null,
+          "all": [
+            2,
+            7
+          ]
+        }
+      },
+      "insights": [],
+      "page": "screenshotter/compare.html",
+      "headline": "screenshotter is 3rd of the 9 repositories for commits."
+    }
+  ]
+}

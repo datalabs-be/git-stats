@@ -1,0 +1,1270 @@
+{
+  "schema_version": 1,
+  "title": "AI-assisted commits",
+  "description": "Commits that name an AI coding assistant: as their author, as a co-author, or in the line it signs with. These are lower bounds: an assistant that leaves no mark in a commit is not counted, and a mark does not say how much of the commit the assistant wrote. A commit counts in the month it was written (its author date).",
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-15T20:49:55+01:00",
+  "quarters": [
+    "2025-Q1",
+    "2025-Q2",
+    "2025-Q3",
+    "2025-Q4",
+    "2026-Q1",
+    "2026-Q2",
+    "2026-Q3"
+  ],
+  "repositories": [
+    {
+      "name": "centr-crawler-design",
+      "report": "centr-crawler-design/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 172,
+        "ai_assisted": 0,
+        "authored": 0,
+        "assistants": {}
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 80,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q1": {
+          "commits": 57,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q2": {
+          "commits": 7,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q3": {
+          "commits": 23,
+          "ai_assisted": 0,
+          "share": 0.0
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 6,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 66,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 8,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 47,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 7,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 3,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 5,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 8,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 7,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 8,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "dl_infra",
+      "report": "dl_infra/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 14,
+        "ai_assisted": 0,
+        "authored": 0,
+        "assistants": {}
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "java-base-image",
+      "report": "java-base-image/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 45,
+        "ai_assisted": 4,
+        "authored": 3,
+        "assistants": {
+          "GitHub Copilot": 4
+        }
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q2": {
+          "commits": 8,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q3": {
+          "commits": 21,
+          "ai_assisted": 0,
+          "share": 0.0
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 8,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 7,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 9,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 5,
+          "ai_assisted": 0
+        }
+      },
+      "added_at": "2026-11-15T21:03:54+01:00"
+    },
+    {
+      "name": "limited_content_classifier",
+      "report": "limited_content_classifier/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 62,
+        "ai_assisted": 0,
+        "authored": 0,
+        "assistants": {}
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q1": {
+          "commits": 62,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 29,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 16,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 17,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "mercator",
+      "report": "mercator/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 1399,
+        "ai_assisted": 3,
+        "authored": 2,
+        "assistants": {
+          "GitHub Copilot": 3
+        }
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 194,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2025-Q2": {
+          "commits": 158,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2025-Q3": {
+          "commits": 29,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2025-Q4": {
+          "commits": 14,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q2": {
+          "commits": 14,
+          "ai_assisted": 1,
+          "share": 0.0714
+        },
+        "2026-Q3": {
+          "commits": 48,
+          "ai_assisted": 0,
+          "share": 0.0
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 4,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 31,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 64,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 99,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 73,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 51,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 34,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 26,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 1,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 11,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 1,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 3,
+          "ai_assisted": 1
+        },
+        "2026-05": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 9,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 11,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 37,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "mercator-dashboard",
+      "report": "mercator-dashboard/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 1,
+        "ai_assisted": 0,
+        "authored": 0,
+        "assistants": {}
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        }
+      },
+      "added_at": "2026-11-15T21:03:54+01:00"
+    },
+    {
+      "name": "mercator_data_processor",
+      "report": "mercator_data_processor/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 69,
+        "ai_assisted": 0,
+        "authored": 0,
+        "assistants": {}
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q1": {
+          "commits": 47,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q2": {
+          "commits": 11,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q3": {
+          "commits": 4,
+          "ai_assisted": 0,
+          "share": 0.0
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 5,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 23,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 19,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 5,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 5,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 1,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2026-08": {
+          "commits": 2,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "portal",
+      "report": "portal/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 861,
+        "ai_assisted": 2,
+        "authored": 2,
+        "assistants": {
+          "GitHub Copilot": 2
+        }
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 257,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q1": {
+          "commits": 132,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q2": {
+          "commits": 156,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q3": {
+          "commits": 231,
+          "ai_assisted": 2,
+          "share": 0.0087
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 17,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 146,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 94,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 76,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 34,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 22,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 44,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 48,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 64,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 91,
+          "ai_assisted": 2
+        },
+        "2026-08": {
+          "commits": 100,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 40,
+          "ai_assisted": 0
+        }
+      }
+    },
+    {
+      "name": "screenshotter",
+      "report": "screenshotter/index.html",
+      "counted_by": "gitstats 2.12.2",
+      "all_time": {
+        "commits": 169,
+        "ai_assisted": 1,
+        "authored": 1,
+        "assistants": {
+          "GitHub Copilot": 1
+        }
+      },
+      "quarters": {
+        "2025-Q1": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q3": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2025-Q4": {
+          "commits": 26,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q1": {
+          "commits": 20,
+          "ai_assisted": 0,
+          "share": 0.0
+        },
+        "2026-Q2": {
+          "commits": 0,
+          "ai_assisted": 0,
+          "share": null
+        },
+        "2026-Q3": {
+          "commits": 70,
+          "ai_assisted": 1,
+          "share": 0.0143
+        }
+      },
+      "months": {
+        "2024-12": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-01": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-07": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-08": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-09": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-10": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-11": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2025-12": {
+          "commits": 26,
+          "ai_assisted": 0
+        },
+        "2026-01": {
+          "commits": 20,
+          "ai_assisted": 0
+        },
+        "2026-02": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-03": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-04": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-05": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-06": {
+          "commits": 0,
+          "ai_assisted": 0
+        },
+        "2026-07": {
+          "commits": 17,
+          "ai_assisted": 1
+        },
+        "2026-08": {
+          "commits": 13,
+          "ai_assisted": 0
+        },
+        "2026-09": {
+          "commits": 40,
+          "ai_assisted": 0
+        }
+      }
+    }
+  ]
+}

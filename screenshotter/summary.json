@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:55+01:00",
+  "name": "screenshotter",
+  "report_path": "screenshotter/index.html",
+  "first_commit": "2025-12-27 12:43:25",
+  "last_commit": "2026-11-14 19:16:18",
+  "age_days": 323,
+  "active_days": 33,
+  "total_commits": 169,
+  "total_authors": 3,
+  "active_authors_12mo": 3,
+  "commits_last_12mo": 169,
+  "total_files": 75,
+  "total_lines": 4162,
+  "lines_added": 4823,
+  "lines_removed": 652,
+  "total_tags": 46,
+  "era": "steady",
+  "top_authors": [
+    {
+      "name": "Maarten Bosteels",
+      "commits": 79
+    },
+    {
+      "name": "woutbosteels",
+      "commits": 6
+    },
+    {
+      "name": "wbosteels",
+      "commits": 4
+    }
+  ],
+  "author_commits": {
+    "Maarten Bosteels": 79,
+    "wbosteels": 4,
+    "woutbosteels": 6
+  },
+  "commits_by_year": {
+    "2025": 26,
+    "2026": 143
+  },
+  "ai_assisted": {
+    "commits": 1,
+    "authored": 1,
+    "assistants": {
+      "GitHub Copilot": 1
+    },
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 1,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 0
+    },
+    "commits_by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 26,
+      "2026-01": 20,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 17,
+      "2026-08": 13,
+      "2026-09": 40,
+      "2026-10": 14,
+      "2026-11": 39
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 169,
+    "by_kind": {
+      "organization": 64,
+      "one_person": 2,
+      "personal": 0,
+      "hidden": 23,
+      "unknown": 0,
+      "bot": 80
+    },
+    "organization_count": 1,
+    "last_12mo_from": "2025-12",
+    "top": [
+      {
+        "organization": "bosteels.eu",
+        "commits": 64,
+        "commits_last_12mo": 64,
+        "addresses": 2,
+        "first_commit": "2025-12-27",
+        "last_commit": "2026-11-14"
+      }
+    ],
+    "quarters": {
+      "2025-Q4": {
+        "organization": 17,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 9
+      },
+      "2026-Q1": {
+        "organization": 13,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 7
+      },
+      "2026-Q3": {
+        "organization": 12,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 22,
+        "unknown": 0,
+        "bot": 34
+      },
+      "2026-Q4": {
+        "organization": 22,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 1,
+        "unknown": 0,
+        "bot": 30
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 89,
+    "authors": 3,
+    "new_authors": 3,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 89,
+    "commits_by_year": {
+      "2025": 17,
+      "2026": 72
+    },
+    "active_days": 21
+  },
+  "timezones": {
+    "+0000": 80,
+    "+0100": 50,
+    "+0200": 39
+  },
+  "source_lines": {
+    "added": 5210,
+    "current": 4162
+  }
+}

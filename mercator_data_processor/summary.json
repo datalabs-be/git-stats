@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:54+01:00",
+  "name": "mercator_data_processor",
+  "report_path": "mercator_data_processor/index.html",
+  "first_commit": "2026-01-25 10:59:02",
+  "last_commit": "2026-11-15 10:45:00",
+  "age_days": 294,
+  "active_days": 26,
+  "total_commits": 69,
+  "total_authors": 3,
+  "active_authors_12mo": 3,
+  "commits_last_12mo": 69,
+  "total_files": 101,
+  "total_lines": 7707,
+  "lines_added": 11407,
+  "lines_removed": 3658,
+  "total_tags": 0,
+  "era": "birth",
+  "top_authors": [
+    {
+      "name": "Maarten Bosteels",
+      "commits": 65
+    },
+    {
+      "name": "maarten.bosteels",
+      "commits": 2
+    },
+    {
+      "name": "woutbosteels",
+      "commits": 2
+    }
+  ],
+  "author_commits": {
+    "Maarten Bosteels": 65,
+    "woutbosteels": 2,
+    "maarten.bosteels": 2
+  },
+  "commits_by_year": {
+    "2026": 69
+  },
+  "ai_assisted": {
+    "commits": 0,
+    "authored": 0,
+    "assistants": {},
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 0
+    },
+    "commits_by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 5,
+      "2026-02": 23,
+      "2026-03": 19,
+      "2026-04": 5,
+      "2026-05": 5,
+      "2026-06": 1,
+      "2026-07": 2,
+      "2026-08": 2,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 7
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 69,
+    "by_kind": {
+      "organization": 67,
+      "one_person": 2,
+      "personal": 0,
+      "hidden": 0,
+      "unknown": 0,
+      "bot": 0
+    },
+    "organization_count": 1,
+    "last_12mo_from": "2025-12",
+    "top": [
+      {
+        "organization": "bosteels.eu",
+        "commits": 67,
+        "commits_last_12mo": 67,
+        "addresses": 2,
+        "first_commit": "2026-01-25",
+        "last_commit": "2026-11-15"
+      }
+    ],
+    "quarters": {
+      "2026-Q1": {
+        "organization": 45,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q2": {
+        "organization": 11,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q3": {
+        "organization": 4,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q4": {
+        "organization": 7,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 69,
+    "authors": 3,
+    "new_authors": 3,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 69,
+    "commits_by_year": {
+      "2026": 69
+    },
+    "active_days": 26
+  },
+  "timezones": {
+    "+0000": 6,
+    "+0100": 48,
+    "+0200": 15
+  },
+  "source_lines": {
+    "added": 7483,
+    "current": 6167
+  }
+}

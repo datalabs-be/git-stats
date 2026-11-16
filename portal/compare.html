@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats - How portal compares</title>
+	<meta name="description" content="portal had more commits in the last 12 months than any other of the 9 repositories.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="How portal compares">
+	<meta property="og:description" content="portal had more commits in the last 12 months than any other of the 9 repositories.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="How portal compares">
+	<meta name="twitter:description" content="portal had more commits in the last 12 months than any other of the 9 repositories.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="../gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="../sortable.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="../index.html" class="nav-brand">GitStats</a>
+            <ul>
+            <li><a href="../index.html">GitStats Portfolio</a></li>
+            <li><a href="../ai.html">AI-assisted commits</a></li><li><a href="../organizations.html">Organizations</a></li>
+            </ul>
+            <div class="nav-right">
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>portal</h1><p class="portfolio-subtitle">Compared with all 9 repositories of <a href="../index.html">GitStats Portfolio</a> &middot; the 12 months up to each one&rsquo;s last commit</p><p class="compare-headline">portal had more commits in the last 12 months than any other of the 9 repositories.</p><p class="compare-legend"><span><i class="own"></i>portal</span><span><i class="all"></i>all</span></p><div class="compare-list"><div class="compare-row"><div><span class="compare-name">Commits</span><span class="compare-value">337</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="Commits: 337 among 9"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="470.9" cy="16.0" r="4"/><circle class="strip-all" cx="279.6" cy="16.0" r="4"/><circle class="strip-all" cx="385.2" cy="16.0" r="4"/><circle class="strip-all" cx="421.9" cy="16.0" r="4"/><circle class="strip-all" cx="434.1" cy="16.0" r="4"/><circle class="strip-all" cx="77.5" cy="16.0" r="4"/><circle class="strip-all" cx="438.3" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="459.3" cy="16.0" r="4"/><circle class="strip-own" cx="592.0" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0</span><span>337</span></div></div><div class="compare-rank"><b>1st of 9</b>repositories</div><p class="compare-definition">Commits in the 12 months up to the last one; bots&#x27; commits are left out.</p></div><div class="compare-row"><div><span class="compare-name">Contributors</span><span class="compare-value">3</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="Contributors: 3 among 9"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="406.6" cy="16.0" r="4"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-own" cx="511.0" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0</span><span>4</span></div></div><div class="compare-rank"><b>3rd of 9</b>repositories, shared with 3 others</div><p class="compare-definition">People who made a commit in those 12 months; bots are left out.</p></div><div class="compare-row"><div><span class="compare-name">New contributors</span><span class="compare-value">1</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="New contributors: 1 among 9"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="406.6" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="406.6" cy="16.0" r="4"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="259.5" cy="16.0" r="4"/><circle class="strip-all" cx="511.0" cy="16.0" r="4"/><circle class="strip-own" cx="259.5" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0</span><span>4</span></div></div><div class="compare-rank"><b>6th of 9</b>repositories, shared with 3 others</div><p class="compare-definition">Of them, those whose first commit to the project was in those 12 months.</p></div><div class="compare-row"><div><span class="compare-name">Half the commits by</span><span class="compare-value">1</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="Half the commits by: 1 among 9"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-own" cx="592.0" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0</span><span>1</span></div></div><div class="compare-rank"><b>Same for all</b>9 repositories</div><p class="compare-definition">The fewest people whose commits add up to half of those 12 months&#x27;: how far the work is spread.</p></div><div class="compare-row"><div><span class="compare-name">Organizations</span><span class="compare-value">1</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="Organizations: 1 among 9"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-own" cx="592.0" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0</span><span>1</span></div></div><div class="compare-rank"><b>1st of 9</b>repositories, shared with 6 others</div><p class="compare-definition">Organizations whose addresses committed in those 12 months, by email domain; a domain only one person uses is not one.</p></div><div class="compare-row"><div><span class="compare-name">AI-assisted</span><span class="compare-value">0.3%</span></div><div class="compare-strip"><svg class="strip" viewBox="0 0 600 32" role="img" aria-label="AI-assisted: 0.3% among 7"><line class="strip-axis" x1="8" y1="16.0" x2="592" y2="16.0"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="8.0" cy="16.0" r="4"/><circle class="strip-all" cx="592.0" cy="16.0" r="4"/><circle class="strip-all" cx="122.4" cy="16.0" r="4"/><circle class="strip-all" cx="390.6" cy="16.0" r="4"/><circle class="strip-own" cx="122.4" cy="16.0" r="7"/></svg><div class="strip-scale"><span>0%</span><span>1.3%</span></div></div><div class="compare-rank"><b>3rd of 7</b>repositories</div><p class="compare-definition">The share of the last four quarters&#x27; commits that name an AI coding assistant; a lower bound.</p></div></div><p class="section-note">Counts sit on a logarithmic scale, so that projects of every size have room; shares on a straight one. A rank is a position among these projects, not a score: more is not better. Every number is in <a href="../compare.json">compare.json</a>.</p><p class="more-link"><a href="index.html">The full report of portal &rarr;</a></p></main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body>
+</html>

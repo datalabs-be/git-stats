@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats - mercator: Lines</title>
+	<meta name="description" content="mercator: 1,399 commits by 17 authors, 2022 to 2026. A report made with gitstats.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="mercator: Lines">
+	<meta property="og:description" content="mercator: 1,399 commits by 17 authors, 2022 to 2026. A report made with gitstats.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="mercator: Lines">
+	<meta name="twitter:description" content="mercator: 1,399 commits by 17 authors, 2022 to 2026. A report made with gitstats.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="sortable.js"></script>
+	<script type="text/javascript" src="chart.umd.min.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+	<script>
+	// Chart.js reads colors once when a chart is built, so re-read the CSS
+	// variables whenever the theme switches. Datasets flagged `themed` follow --bar-color.
+	function applyChartTheme(chart) {
+		const text = getCSSVar('--chart-text');
+		const grid = getCSSVar('--chart-grid');
+		Chart.defaults.color = text;
+		Chart.defaults.borderColor = grid;
+		// axis ticks, legends and tooltips in the report's monospace, like its other numbers
+		Chart.defaults.font.family = getCSSVar('--font-mono');
+		Chart.defaults.font.size = 11;
+		if (!chart) return;
+		// Built charts keep the defaults they resolved, so set colors on each one.
+		Object.values(chart.options.scales).forEach(function(scale) {
+			scale.ticks.color = text;
+			scale.title.color = text;
+			// month axes draw gridlines only at their labelled years (see monthAxisGrid)
+			scale.grid.color = scale.ticks.callback === monthAxisTick ? monthAxisGrid : grid;
+			scale.border.color = grid;
+		});
+		chart.options.plugins.legend.labels.color = text;
+		const bar = getCSSVar('--bar-color');
+		chart.data.datasets.forEach(function(ds) {
+			if (ds.themed) { ds.backgroundColor = bar; ds.borderColor = bar; }
+			if (ds.colorVar) { ds.backgroundColor = ds.borderColor = getCSSVar(ds.colorVar); }
+			if (ds.series) {
+				const color = getCSSVar('--series-' + ds.series);
+				ds.borderColor = color;
+				ds.backgroundColor = color + '33';
+			}
+		});
+	}
+
+	document.addEventListener('themechange', function() {
+		applyChartTheme();
+		Object.values(Chart.instances).forEach(function(chart) {
+			applyChartTheme(chart);
+			chart.update('none');
+		});
+	});
+
+	// Marks drawn onto a chart (see _render_chartjs(annotations=...)):
+	//   bands  shaded x-ranges with a caption, e.g. a stretch of years without commits
+	//   peaks  a label above chosen bars
+	//   values a value label above every non-zero bar
+	// A band flagged `collapsed` stands for a stretch cut out of the axis: it is
+	// hatched, its caption runs up the band, and `axis` names it under the plot.
+	// Colors are read from CSS at draw time, so they follow the theme.
+	function bandEdges(chart, band) {
+		const x = chart.scales.x;
+		const half = x.type === 'category' && chart.data.labels.length > 1
+			? (x.getPixelForValue(1) - x.getPixelForValue(0)) / 2 : 0;
+		return [x.getPixelForValue(band.from) - half, x.getPixelForValue(band.to) + half];
+	}
+
+	const chartAnnotations = {
+		id: 'gsAnnotations',
+		beforeDatasetsDraw: function(chart, args, opts) {
+			const area = chart.chartArea, ctx = chart.ctx;
+			const height = area.bottom - area.top;
+			(opts.bands || []).forEach(function(band) {
+				const edges = bandEdges(chart, band), left = edges[0], right = edges[1];
+				ctx.save();
+				ctx.fillStyle = getCSSVar('--surface-color');
+				ctx.fillRect(left, area.top, right - left, height);
+				if (band.collapsed) {
+					// hatched: not drawn to scale
+					ctx.save();
+					ctx.beginPath();
+					ctx.rect(left, area.top, right - left, height);
+					ctx.clip();
+					ctx.strokeStyle = getCSSVar('--border-color');
+					ctx.beginPath();
+					for (let d = left - height; d < right; d += 8) {
+						ctx.moveTo(d, area.bottom); ctx.lineTo(d + height, area.top);
+					}
+					ctx.stroke();
+					ctx.restore();
+				}
+				ctx.strokeStyle = getCSSVar('--border-strong');
+				ctx.setLineDash([3, 3]);
+				ctx.beginPath();
+				ctx.moveTo(left, area.top); ctx.lineTo(left, area.bottom);
+				ctx.moveTo(right, area.top); ctx.lineTo(right, area.bottom);
+				ctx.stroke();
+				ctx.font = '11px ' + getCSSVar('--font-mono');
+				ctx.textAlign = 'center';
+				// the caption runs along the band's longer side
+				const room = band.collapsed ? height : right - left;
+				let text = band.text;
+				if (ctx.measureText(text).width > room - 8) text = band.short || '';
+				const width = ctx.measureText(text).width;
+				const taken = band.collapsed && barMarks(chart, opts).some(function(mark) {
+					return mark.onBand && mark.x + mark.half > left && mark.x - mark.half < right;
+				});
+				if (text && !taken && width <= room - 4 && (!band.collapsed || right - left >= 14)) {
+					ctx.translate((left + right) / 2, area.top + height / 2);
+					if (band.collapsed) {
+						ctx.rotate(-Math.PI / 2);
+						// clear the hatching behind the caption
+						ctx.fillStyle = getCSSVar('--surface-color');
+						ctx.fillRect(-width / 2 - 4, -7, width + 8, 14);
+						ctx.textBaseline = 'middle';
+					}
+					ctx.fillStyle = getCSSVar('--chart-text');
+					ctx.fillText(text, 0, 0);
+				}
+				ctx.restore();
+			});
+		},
+		// The years a collapsed band stands for, on the row of the tick labels,
+		// unless it would run into one of them (a narrow chart on a phone).
+		afterDraw: function(chart, args, opts) {
+			const x = chart.scales.x, ctx = chart.ctx;
+			(opts.bands || []).forEach(function(band) {
+				if (!band.collapsed || !band.axis) return;
+				const edges = bandEdges(chart, band), center = (edges[0] + edges[1]) / 2;
+				ctx.save();
+				ctx.font = '11px ' + getCSSVar('--font-mono');
+				const half = ctx.measureText(band.axis).width / 2;
+				const clash = x.ticks.some(function(tick, i) {
+					const label = Array.isArray(tick.label) ? tick.label.join(' ') : tick.label;
+					if (!label) return false;
+					const reach = half + ctx.measureText(String(label)).width / 2 + 6;
+					return Math.abs(x.getPixelForTick(i) - center) < reach;
+				});
+				if (!clash) {
+					const grid = x.options.grid;
+					ctx.fillStyle = getCSSVar('--chart-text');
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'top';
+					ctx.fillText(band.axis, center,
+						x.top + (grid.drawTicks ? grid.tickLength : 0) + x.options.ticks.padding);
+				}
+				ctx.restore();
+			});
+		},
+		afterDatasetsDraw: function(chart, args, opts) {
+			const ctx = chart.ctx;
+			barMarks(chart, opts).forEach(function(mark) {
+				ctx.save();
+				ctx.font = mark.font;
+				ctx.textAlign = 'center';
+				if (mark.onBand) {
+					// no room beside the band: clear its hatching behind the label
+					ctx.fillStyle = getCSSVar('--surface-color');
+					ctx.fillRect(mark.x - mark.half - 2, mark.y - 10, 2 * mark.half + 4, 13);
+				}
+				ctx.fillStyle = getCSSVar(mark.plain ? '--chart-text' : '--text-color');
+				ctx.fillText(mark.text, mark.x, mark.y);
+				ctx.restore();
+			});
+		}
+	};
+
+	// Where the labels above bars go: {text, plain, font, x, y, half, onBand}.
+	// A label stays inside the plot area and, when there is room, beside a
+	// collapsed band rather than on it; `onBand` marks the ones left on one.
+	function barMarks(chart, opts) {
+		const meta = chart.getDatasetMeta(0), ctx = chart.ctx, area = chart.chartArea;
+		const marks = (opts.peaks || []).slice();
+		if (opts.values) {
+			chart.data.datasets[0].data.forEach(function(v, i) {
+				if (v) marks.push({ index: i, text: String(v), plain: true });
+			});
+		}
+		const bands = (opts.bands || []).filter(function(band) { return band.collapsed; })
+			.map(function(band) { return bandEdges(chart, band); });
+		const placed = [];
+		marks.forEach(function(mark) {
+			const bar = meta.data[mark.index];
+			if (!bar) return;
+			const font = (mark.plain ? '' : '600 ') + '11px ' + getCSSVar('--font-mono');
+			ctx.save();
+			ctx.font = font;
+			const half = ctx.measureText(mark.text).width / 2;
+			ctx.restore();
+			const inside = function(x) { return Math.min(Math.max(x, area.left + half), area.right - half); };
+			let x = inside(bar.x);
+			bands.forEach(function(edges) {
+				if (bar.x >= edges[1]) x = inside(Math.max(x, edges[1] + half + 4));
+				else if (bar.x <= edges[0]) x = inside(Math.min(x, edges[0] - half - 4));
+			});
+			const onBand = bands.some(function(edges) {
+				return x + half > edges[0] && x - half < edges[1];
+			});
+			placed.push({ text: mark.text, plain: mark.plain, font: font, x: x, y: bar.y - 6,
+				half: half, onBand: onBand });
+		});
+		return placed;
+	}
+
+	// The slots standing in for a collapsed stretch are named after all of it
+	// ("2016 – 2023"), for tooltips; under the plot the annotation names it.
+	function isCollapsedLabel(label) {
+		return String(label).indexOf(' – ') !== -1;
+	}
+
+	function categoryTick(value) {
+		const label = this.getLabelForValue(value);
+		return isCollapsedLabel(label) ? '' : label;
+	}
+
+	// Ticks for a category axis of "YYYY-MM" months: the year at each January,
+	// thinned so labels never collide; short spans label every few months.
+	function monthAxisTick(value) {
+		const label = this.getLabelForValue(value);
+		if (isCollapsedLabel(label)) return '';
+		const n = this.chart.data.labels.length;
+		const width = Math.max(this.width, 1);
+		if (n <= 24) {
+			return value % Math.max(1, Math.ceil(n * 64 / width)) === 0 ? label : '';
+		}
+		if (String(label).slice(5) !== '01') return '';
+		const year = Number(String(label).slice(0, 4));
+		const step = Math.max(1, Math.ceil((n / 12) * 40 / width));
+		return year % step === 0 ? String(year) : '';
+	}
+
+	function monthAxisGrid(ctx) {
+		return ctx.tick && ctx.tick.label ? getCSSVar('--chart-grid') : 'transparent';
+	}
+
+	function formatChartDate(ms, unit) {
+		const d = new Date(ms);
+		const pad = function(n) { return (n < 10 ? '0' : '') + n; };
+		if (unit === 'year') return String(d.getFullYear());
+		if (unit === 'month') return d.getFullYear() + '-' + pad(d.getMonth() + 1);
+		return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+	}
+
+	// A long stretch without commits is cut out of a time axis and drawn as a
+	// short break: `gap` is {from, to, width} in milliseconds, and the stretch
+	// from..to takes `width` on the axis. squeezeTime() gives a timestamp its
+	// place on the cut axis, stretchTime() gives a place its timestamp back.
+	// Without a gap both leave the value alone.
+	function squeezeTime(gap, ms) {
+		if (!gap || ms <= gap.from) return ms;
+		if (ms >= gap.to) return ms - (gap.to - gap.from) + gap.width;
+		return gap.from + (ms - gap.from) / (gap.to - gap.from) * gap.width;
+	}
+
+	function stretchTime(gap, at) {
+		if (!gap || at <= gap.from) return at;
+		if (at >= gap.from + gap.width) return at + (gap.to - gap.from) - gap.width;
+		return gap.from + (at - gap.from) / gap.width * (gap.to - gap.from);
+	}
+
+	// A linear x-axis over millisecond timestamps, ticked on year (or month)
+	// boundaries, so gaps in history take up the space they really span;
+	// only a gap handed in as `gap` is cut short (see squeezeTime).
+	function timeAxis(xs, gap) {
+		var min = xs.length ? squeezeTime(gap, xs[0]) : undefined;
+		var max = xs.length ? squeezeTime(gap, xs[xs.length - 1]) : undefined;
+		// one point in time (a single commit) has no width: give it a month
+		// around it, or the point has no place on the axis and is not drawn
+		if (xs.length && min === max) {
+			min -= 15 * 864e5;
+			max += 15 * 864e5;
+		}
+		return {
+			type: 'linear',
+			min: min,
+			max: max,
+			afterBuildTicks: function(scale) {
+				const first = stretchTime(gap, scale.min), last = stretchTime(gap, scale.max);
+				const from = new Date(first), to = new Date(last);
+				const ticks = [];
+				// no tick inside the stretch that was cut out
+				const add = function(ms) {
+					if (!gap || ms < gap.from || ms >= gap.to) ticks.push({ value: squeezeTime(gap, ms) });
+				};
+				let unit = 'year';
+				if (to.getFullYear() - from.getFullYear() >= 2) {
+					for (let y = from.getFullYear() + 1; y <= to.getFullYear(); y++) {
+						add(new Date(y, 0, 1).getTime());
+					}
+				} else {
+					unit = 'month';
+					const d = new Date(from.getFullYear(), from.getMonth() + 1, 1);
+					for (; d.getTime() <= last; d.setMonth(d.getMonth() + 1)) {
+						add(d.getTime());
+					}
+				}
+				scale.dateUnit = ticks.length >= 2 ? unit : 'day';
+				if (ticks.length >= 2) scale.ticks = ticks;
+			},
+			ticks: {
+				maxRotation: 0,
+				autoSkipPadding: 12,
+				callback: function(value) {
+					return formatChartDate(stretchTime(gap, value), this.dateUnit);
+				}
+			}
+		};
+	}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="../index.html" class="nav-brand nav-up">&larr; GitStats Portfolio</a>
+            <ul>
+            <li><a href="index.html">General</a></li>
+            <li><a href="activity.html">Activity</a></li>
+            <li><a href="authors.html">Authors</a></li>
+            <li><a href="ownership.html">Code Ownership</a></li>
+            <li><a href="hotspots.html">Hotspots</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="lines.html" class="active" aria-current="page">Lines</a></li>
+            <li><a href="tags.html">Tags</a></li>
+            <li><a href="badges.html">Badges</a></li>
+            
+            </ul>
+            <div class="nav-right">
+            <a href="https://github.com/shenxianpeng/gitstats" class="nav-github" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>Lines</h1><dl class="stat-tiles" style="--cols: 3; --cols-md: 3; --cols-sm: 2; --span-sm: 2"><div class="stat-tile"><dt>Lines of Code</dt><dd class="stat-value">136,075</dd><dd class="stat-note">in 428 files</dd></div><div class="stat-tile"><dt>Lines Added</dt><dd class="stat-value"><span class="stat-added">+460,621</span></dd><dd class="stat-note">329 per commit</dd></div><div class="stat-tile"><dt>Lines Removed</dt><dd class="stat-value"><span class="stat-removed">−324,505</span></dd><dd class="stat-note">232 per commit</dd></div></dl>
+<h2 id="lines_of_code"><a href="#lines_of_code">Lines of code</a></h2>
+
+<div class="chart-box" style="--chart-ratio: 3"><canvas id="chart-lines-of-code" role="img" aria-label="Line chart of lines of code over time, 2022-03-16 to 2026-11-03"></canvas></div>
+<script>
+(function() {
+  var ctx = document.getElementById('chart-lines-of-code').getContext('2d');
+  var labels = [1647430999000, 1647433164000, 1647440960000, 1647441374000, 1647441958000, 1647544607000, 1647544628000, 1647872220000, 1647877123000, 1647961839000, 1647961878000, 1648044691000, 1648051147000, 1648051207000, 1648055368000, 1648110598000, 1648114605000, 1648120128000, 1648121029000, 1648121506000, 1648122141000, 1648127030000, 1648128048000, 1648135196000, 1648218741000, 1648223403000, 1648227893000, 1648242325000, 1648245284000, 1648247037000, 1648247822000, 1648248542000, 1648249143000, 1648249481000, 1648250418000, 1648289839000, 1648454298000, 1648459550000, 1648459799000, 1648479515000, 1648555773000, 1648566338000, 1648718553000, 1648718728000, 1648735310000, 1649338785000, 1649341139000, 1649675830000, 1649688832000, 1649691261000, 1649705375000, 1649708967000, 1649747006000, 1649747063000, 1649836183000, 1649836257000, 1649838040000, 1649842519000, 1649842642000, 1649857972000, 1649858841000, 1649923469000, 1649927211000, 1650538328000, 1650552350000, 1650552562000, 1650553100000, 1650553884000, 1650555160000, 1650620400000, 1650620841000, 1650621708000, 1651133878000, 1651136229000, 1651136967000, 1651144564000, 1651225921000, 1651497615000, 1651497650000, 1651663513000, 1652102192000, 1652103535000, 1652105431000, 1652105438000, 1652105459000, 1652106239000, 1652106644000, 1652108168000, 1652111870000, 1652183697000, 1652185554000, 1652200201000, 1652211899000, 1652247715000, 1652260004000, 1652260142000, 1652268501000, 1652346062000, 1652353974000, 1652356257000, 1652361392000, 1652429442000, 1652695584000, 1652699674000, 1652701256000, 1652703367000, 1652707535000, 1652710436000, 1652776396000, 1652785755000, 1652865160000, 1652873307000, 1652949221000, 1652966840000, 1653031430000, 1653420357000, 1654261503000, 1654284698000, 1654285965000, 1654289593000, 1654290424000, 1654349994000, 1654419213000, 1654419250000, 1654783724000, 1654887804000, 1655712829000, 1655714564000, 1655716146000, 1655899623000, 1655899691000, 1655899764000, 1655988397000, 1656012015000, 1656012214000, 1656925765000, 1656939062000, 1656940628000, 1656941340000, 1656941421000, 1656941448000, 1657013884000, 1657013900000, 1657014241000, 1657038713000, 1657038771000, 1657038790000, 1657038803000, 1657038813000, 1657038821000, 1657047260000, 1657049349000, 1657052218000, 1657053183000, 1657094799000, 1657095508000, 1657102460000, 1657203290000, 1657208021000, 1657294089000, 1657741702000, 1657788261000, 1657877465000, 1657877490000, 1657878944000, 1657881471000, 1657890441000, 1657893262000, 1657897940000, 1657900090000, 1657904066000, 1657914068000, 1657919909000, 1658150820000, 1658158753000, 1658159726000, 1658240419000, 1658248779000, 1658256421000, 1658259126000, 1658259499000, 1658263974000, 1658264056000, 1658267001000, 1658267641000, 1658267843000, 1658309851000, 1658735464000, 1658740940000, 1658819886000, 1658828256000, 1658828908000, 1658829180000, 1658830004000, 1658833867000, 1658844326000, 1658906114000, 1658906547000, 1658910658000, 1658920587000, 1658932254000, 1658932683000, 1658948734000, 1658997079000, 1659009061000, 1659016718000, 1659087308000, 1659110047000, 1659198708000, 1659218052000, 1659285244000, 1659341980000, 1659347779000, 1659352373000, 1659362042000, 1659378073000, 1659383854000, 1659385307000, 1659424594000, 1659431696000, 1660728895000, 1660760626000, 1660761140000, 1660762642000, 1660762734000, 1661332125000, 1661332183000, 1661354700000, 1661775881000, 1661778140000, 1661778574000, 1661778602000, 1661778714000, 1661782874000, 1661782892000, 1661861569000, 1661944458000, 1662713743000, 1662995082000, 1663079764000, 1663144358000, 1663148022000, 1663158009000, 1663160444000, 1663167757000, 1663167959000, 1667227372000, 1667386923000, 1667397783000, 1667399417000, 1669114980000, 1671117132000, 1671133869000, 1671147796000, 1671191975000, 1671193937000, 1671555357000, 1671573578000, 1672066111000, 1672071503000, 1672254936000, 1672740087000, 1672757015000, 1672829968000, 1672830137000, 1673027122000, 1673265722000, 1673265767000, 1673267437000, 1674056227000, 1674118847000, 1674321900000, 1675262449000, 1675262780000, 1675330264000, 1675332681000, 1675342079000, 1675344519000, 1675345869000, 1676887943000, 1676889969000, 1676898542000, 1676974035000, 1676974171000, 1676987182000, 1676989026000, 1676991537000, 1677243362000, 1679048804000, 1679049067000, 1679056168000, 1679412191000, 1679568716000, 1679569691000, 1679573380000, 1679575646000, 1679821918000, 1679823830000, 1680270333000, 1680273448000, 1680273613000, 1680696302000, 1680874222000, 1680874332000, 1680874962000, 1680875198000, 1680875312000, 1681208239000, 1681312383000, 1681481675000, 1681482254000, 1681895960000, 1681899957000, 1681903407000, 1681907920000, 1682068622000, 1683014808000, 1683040633000, 1683116824000, 1683118380000, 1683122458000, 1683123755000, 1683208864000, 1683213738000, 1683235501000, 1683274185000, 1683286071000, 1683286576000, 1683291460000, 1683297763000, 1683299319000, 1683301668000, 1683536355000, 1683537407000, 1683537696000, 1683537835000, 1683537913000, 1683537933000, 1683560398000, 1683560681000, 1684145092000, 1684157824000, 1684157963000, 1684243249000, 1684246096000, 1684754362000, 1685093833000, 1685610076000, 1685616604000, 1685958732000, 1685963925000, 1685968751000, 1685969905000, 1685977490000, 1686036566000, 1686037608000, 1686063908000, 1686084566000, 1686126833000, 1686216415000, 1686230388000, 1686302005000, 1686321098000, 1686321372000, 1686648541000, 1686754880000, 1686755346000, 1686909210000, 1686909387000, 1686920546000, 1686920668000, 1686921224000, 1687356611000, 1688135766000, 1688135939000, 1688670071000, 1688728325000, 1688728476000, 1688730346000, 1688739570000, 1688741508000, 1688744740000, 1688744788000, 1688745395000, 1688745443000, 1688746034000, 1688812678000, 1688812836000, 1689082708000, 1689086252000, 1690206427000, 1690210687000, 1690802654000, 1690803329000, 1690803352000, 1690882755000, 1690901028000, 1690981755000, 1691064705000, 1691065711000, 1691065763000, 1691066934000, 1691067016000, 1691069911000, 1691086938000, 1692795568000, 1692797538000, 1692878466000, 1692882099000, 1692883660000, 1692883791000, 1692886944000, 1692963911000, 1692963963000, 1692967577000, 1692973839000, 1692979222000, 1693214317000, 1693215898000, 1693223305000, 1693223348000, 1693233746000, 1693384831000, 1693402036000, 1694174802000, 1697104171000, 1697718312000, 1699276216000, 1700039659000, 1700064888000, 1700211767000, 1700491034000, 1700652877000, 1701348864000, 1701859389000, 1701958930000, 1701967313000, 1702026151000, 1702028432000, 1702030774000, 1702031836000, 1702034303000, 1702049991000, 1702306820000, 1702311686000, 1702315443000, 1702317879000, 1702319049000, 1702369680000, 1702370689000, 1702373292000, 1702373546000, 1702377943000, 1702379242000, 1702385048000, 1702387895000, 1702391460000, 1702392363000, 1702395627000, 1702461837000, 1702629513000, 1702636632000, 1702639824000, 1702654031000, 1702905513000, 1702996255000, 1702996368000, 1702996396000, 1703070188000, 1711707873000, 1711709016000, 1714477369000, 1714650607000, 1720194196000, 1720256327000, 1720259763000, 1720263193000, 1720263804000, 1720269930000, 1721044390000, 1721045797000, 1721050161000, 1721051100000, 1721052683000, 1721052715000, 1721053658000, 1721054569000, 1721066294000, 1721069012000, 1721070012000, 1721137092000, 1722264500000, 1722344169000, 1722344178000, 1722346484000, 1722349176000, 1722352833000, 1722354164000, 1722416639000, 1722426909000, 1722607156000, 1722960755000, 1722960776000, 1723120299000, 1723471261000, 1723471416000, 1723471454000, 1723471479000, 1723473570000, 1724070710000, 1724156136000, 1724228317000, 1725372786000, 1725372796000, 1725375075000, 1725438529000, 1725441921000, 1725449054000, 1725451743000, 1727940889000, 1727955447000, 1728026080000, 1728032620000, 1728038915000, 1728039274000, 1728042064000, 1728042963000, 1728043803000, 1728046868000, 1728567766000, 1728568146000, 1728568182000, 1728568962000, 1728569941000, 1728572233000, 1728573197000, 1728638173000, 1728640112000, 1728644917000, 1728646237000, 1728653218000, 1728653961000, 1728663710000, 1728904685000, 1728909378000, 1728910864000, 1728915050000, 1728917561000, 1728918003000, 1728919183000, 1729089874000, 1729505917000, 1732182207000, 1732183017000, 1732183425000, 1732183686000, 1732183773000, 1732183940000, 1732184112000, 1732184123000, 1732184238000, 1732184329000, 1732184429000, 1732184482000, 1732184553000, 1732184618000, 1732184701000, 1732185369000, 1732185473000, 1732185606000, 1732185775000, 1732195726000, 1732196082000, 1732196414000, 1736850996000, 1736852092000, 1736852209000, 1736854229000, 1736858933000, 1736860764000, 1736866237000, 1736869445000, 1736872235000, 1737046703000, 1737104775000, 1737124958000, 1737131177000, 1737131253000, 1737465219000, 1738175767000, 1738175870000, 1738175924000, 1738176000000, 1738176468000, 1738176560000, 1738316112000, 1738317764000, 1738336774000, 1738345136000, 1738347203000, 1738347247000, 1738347263000, 1738347994000, 1738348038000, 1738591708000, 1738591873000, 1738676889000, 1738685781000, 1738755573000, 1740486047000, 1740946260000, 1741004878000, 1751365542000, 1751367445000, 1751459225000, 1751459244000, 1751459902000, 1751620087000, 1751620466000, 1751634599000, 1751875756000, 1751973196000, 1752055895000, 1752241245000, 1753194601000, 1753194852000, 1753195385000, 1753205019000, 1753361105000, 1753361572000, 1753382488000, 1753382684000, 1753774794000, 1755101325000, 1756738816000, 1756895985000, 1759674577000, 1759675481000, 1759676946000, 1759677638000, 1759788672000, 1759788803000, 1759789239000, 1759789558000, 1759790102000, 1759943392000, 1759948372000, 1762509234000, 1762513518000, 1765120107000, 1776099800000, 1776100677000, 1776334160000, 1778075038000, 1779051860000, 1782375560000, 1782376194000, 1782376915000, 1782376995000, 1782380216000, 1782381638000, 1782383033000, 1782466794000, 1782468276000, 1782891396000, 1783865248000, 1783866078000, 1783879614000, 1783879659000, 1783879853000, 1783927980000, 1783932689000, 1784103132000, 1785415466000, 1788417602000, 1788418139000, 1789557736000, 1790241166000, 1790241846000, 1790241888000, 1790696266000, 1790705845000, 1791208493000, 1791208734000, 1791640176000, 1791641435000, 1791641650000, 1791643255000, 1792261196000, 1792311297000, 1793720659000, 1793723971000];
+  var gap = null;
+  applyChartTheme();
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: (function(xs, sets) {
+        sets.forEach(function(ds) {
+          ds.data = ds.data.map(function(y, i) {
+            return { x: squeezeTime(gap, xs[i]), y: y };
+          });
+        });
+        return sets;
+      })(labels, [{"label": "Lines", "data": [103820, 103820, 103817, 103816, 103814, 103814, 103818, 103818, 103819, 103977, 103978, 103969, 104017, 104195, 104195, 104189, 104189, 104189, 104189, 104255, 104255, 104255, 104256, 104526, 104562, 104874, 104870, 104876, 104901, 104901, 104901, 104949, 104954, 104959, 104962, 104954, 102142, 104954, 102528, 102634, 102695, 102718, 104954, 104954, 102907, 103034, 103041, 104954, 104927, 102940, 102559, 102559, 102635, 102140, 102950, 102938, 102917, 102914, 102918, 102926, 102924, 102928, 102925, 102925, 103191, 103180, 103179, 103183, 103187, 103187, 103183, 103173, 103184, 103185, 103184, 103185, 103197, 103197, 103249, 103249, 103255, 103256, 103258, 103258, 103632, 103633, 103635, 103637, 103628, 103631, 103784, 103784, 103786, 103789, 103754, 103754, 103742, 103742, 103742, 103730, 103733, 103734, 104130, 104131, 104136, 104142, 104133, 104132, 104134, 104192, 104159, 104176, 104176, 104197, 104197, 104190, 104178, 104173, 104173, 104178, 104174, 104174, 104667, 104779, 106776, 106776, 109330, 109324, 109326, 109328, 109330, 109330, 109333, 111223, 111269, 111250, 111248, 111248, 111248, 105915, 105915, 105910, 111729, 111729, 111721, 111708, 111706, 111706, 111678, 111681, 111674, 111676, 111663, 111664, 111662, 111660, 111916, 111916, 111919, 111925, 112617, 112617, 112589, 112596, 112595, 112589, 112603, 112604, 112604, 112616, 112621, 112625, 112633, 112652, 112675, 112676, 112697, 112699, 112698, 112685, 112662, 112653, 112653, 112662, 112666, 112666, 112715, 112936, 112936, 113050, 113051, 113045, 113044, 113044, 113044, 113047, 113045, 113049, 113085, 113082, 113182, 113182, 113168, 113529, 113171, 113172, 113192, 113456, 113459, 113462, 113485, 113485, 113487, 113487, 113495, 113509, 113509, 113509, 113590, 113506, 113507, 113511, 113513, 113515, 113519, 113539, 113535, 113567, 113574, 113573, 113573, 113573, 113573, 113573, 113577, 113573, 113575, 113679, 113679, 113682, 113682, 113661, 113663, 113663, 113659, 113663, 113663, 113673, 113676, 113680, 113680, 113688, 113796, 114044, 113704, 113679, 113680, 113680, 113681, 113684, 102244, 102250, 102253, 110915, 110916, 110945, 110945, 110946, 110946, 110946, 110946, 110948, 110950, 110952, 110944, 110944, 110951, 110969, 110969, 110970, 110970, 110969, 110965, 110965, 110968, 111915, 111451, 111451, 111451, 111451, 111458, 111605, 111606, 111623, 111629, 111631, 111828, 111821, 111821, 111900, 111903, 111904, 111932, 111933, 111937, 111937, 111939, 111948, 111989, 112013, 112003, 112117, 112115, 112119, 112120, 112120, 111484, 111484, 111490, 111490, 111490, 111490, 111426, 111432, 102746, 102753, 102750, 102748, 102748, 102758, 102813, 102819, 102819, 102826, 102837, 102834, 102837, 102830, 102836, 102838, 102781, 102784, 102784, 103012, 98004, 98038, 98261, 98262, 98241, 98243, 98243, 98248, 98253, 99287, 99287, 99287, 99287, 99289, 99300, 99501, 99596, 99429, 99583, 99568, 99429, 99585, 99558, 99581, 99581, 99615, 99625, 99625, 99630, 99638, 99638, 99419, 99421, 99422, 99410, 99410, 99416, 99338, 99354, 99354, 99355, 99356, 99357, 99358, 99431, 99431, 99432, 99432, 99431, 99431, 99430, 99440, 99474, 99870, 99885, 99474, 99475, 99474, 99897, 99912, 99282, 99928, 99928, 99928, 99932, 99932, 99936, 99984, 99996, 99996, 100006, 100014, 100024, 100035, 100035, 100046, 100046, 100051, 100067, 100083, 100083, 100088, 100143, 100143, 100143, 100148, 100148, 100148, 100126, 100126, 101688, 101126, 101129, 101129, 101188, 101188, 101188, 101188, 101188, 101198, 101243, 101247, 101247, 101247, 101244, 101295, 101350, 101354, 101358, 101358, 101413, 101578, 101633, 101688, 101688, 101688, 101922, 101922, 101922, 101922, 101923, 101925, 101925, 101930, 101932, 101931, 101933, 101933, 101920, 101923, 101941, 101941, 101943, 101946, 101948, 101948, 101948, 101948, 101967, 101956, 101956, 101956, 101956, 101840, 101838, 101838, 101937, 101937, 101936, 101940, 101944, 101951, 101958, 101958, 101954, 101956, 101956, 101665, 101665, 101693, 101691, 101712, 101712, 101712, 101710, 101719, 101727, 101727, 101739, 101737, 101738, 101731, 101732, 101734, 101736, 101736, 101736, 101732, 101732, 101735, 101735, 101735, 101735, 101735, 101735, 101735, 101740, 101740, 101741, 101741, 101741, 101742, 101746, 101746, 101746, 101746, 101746, 101748, 101747, 101747, 101747, 101747, 101750, 101747, 101747, 101749, 101747, 101749, 560, 32023, 31633, 31635, 31782, 31774, 31957, 32041, 32037, 32054, 32047, 32099, 32149, 32193, 32176, 32168, 32299, 32299, 32299, 32308, 32311, 32311, 32318, 32318, 32318, 32318, 32318, 32320, 32321, 32321, 32322, 32322, 32326, 32326, 32331, 32331, 32337, 32337, 32355, 32360, 32366, 32367, 32369, 32373, 32389, 33390, 33452, 33437, 33382, 33400, 33402, 33406, 33409, 33417, 33415, 33439, 33455, 233961, 233965, 233974, 131025, 131030, 131016, 131016, 131016, 131016, 131013, 131013, 131030, 131194, 131194, 131194, 131194, 131222, 131225, 131223, 131239, 131239, 131260, 131189, 131197, 131207, 131208, 131343, 131343, 131351, 131352, 131357, 131380, 131380, 131389, 131396, 131400, 131399, 131399, 131399, 131399, 131601, 131601, 131601, 131603, 131601, 131615, 131618, 131618, 131619, 131619, 131629, 131644, 131643, 131891, 131915, 131915, 131915, 132050, 131932, 131933, 131937, 131937, 131939, 131947, 131947, 131947, 131947, 132095, 132115, 132116, 132116, 135768, 135769, 135824, 135824, 135827, 135823, 135824, 135825, 135825, 135827, 136110, 136116], "backgroundColor": getCSSVar('--bar-color'), "borderColor": getCSSVar('--bar-color'), "themed": true, "borderWidth": 1.5, "pointRadius": 0, "pointHoverRadius": 3, "stepped": true}])
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { title: function(items) {
+          return items.length ? formatChartDate(stretchTime(gap, items[0].parsed.x)) : '';
+        } } }
+      },
+      scales: {
+        x: timeAxis(labels, gap),
+        y: { beginAtZero: true, ticks: { precision: 0 } }
+      }
+    }
+  });
+})();
+</script>
+
+<h2 id="lines_added_and_removed_per_month"><a href="#lines_added_and_removed_per_month">Lines added and removed per month</a></h2>
+
+<p class="section-note">Lines added (green, up) and removed (red, down) by each month's commits.</p><div class="chart-box has-legend" style="--chart-ratio: 4"><canvas id="chart-lines-by-month" role="img" aria-label="Bar chart of lines added and removed per month, 2022-03 to 2026-11"></canvas></div>
+<script>
+(function() {
+  var ctx = document.getElementById('chart-lines-by-month').getContext('2d');
+  var labels = ["2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11"];
+  var gap = null;
+  applyChartTheme();
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{"label": "Added", "data": [108617, 3805, 3139, 7388, 44296, 353, 180, 6, 23, 9925, 9248, 2575, 1083, 836, 3684, 3419, 1172, 813, 1, 1956, 14, 2300, 0, 0, 6, 1, 25, 0, 434, 343, 34, 140, 33300, 0, 1237, 200639, 25, 0, 0, 0, 12397, 10, 204, 75, 5, 202, 0, 0, 0, 5, 22, 582, 347, 0, 5361, 90, 304], "colorVar": "--success-color", "borderWidth": 0, "backgroundColor": getCSSVar('--success-color'), "borderColor": getCSSVar('--success-color'), "fill": false, "tension": 0.1, "pointRadius": 0, "pointHoverRadius": 3}, {"label": "Removed", "data": [-2896, -6329, -2146, -309, -42070, -273, -92, -6, -6, -21361, -544, -2072, -631, -619, -17543, -1895, -1171, -516, -1, -1896, -31, -494, 0, 0, -5, -1, -38, 0, -398, -572, -25, -127, -102738, 0, -142, -84, -12, 0, 0, 0, -115174, 0, -68, -19, -5, 0, 0, 0, 0, -3, -10, -282, -315, 0, -1539, -32, -15], "colorVar": "--danger-color", "borderWidth": 0, "backgroundColor": getCSSVar('--danger-color'), "borderColor": getCSSVar('--danger-color'), "fill": false, "tension": 0.1, "pointRadius": 0, "pointHoverRadius": 3}]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true },
+        tooltip: { callbacks: { label: function(item) {
+          return item.dataset.label + ': ' + Math.abs(item.parsed.y).toLocaleString();
+        } } }
+      },
+      scales: {
+        x: { stacked: true, ticks: { autoSkip: false, maxRotation: 0, callback: monthAxisTick }, grid: { color: monthAxisGrid } },
+        y: { stacked: true, beginAtZero: true, ticks: { precision: 0, callback: function(v) { return Math.abs(v).toLocaleString(); } } }
+      }, datasets: { bar: { maxBarThickness: 64 } }
+    }
+  });
+})();
+</script>
+</main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body></html>

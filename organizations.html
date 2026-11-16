@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats Portfolio: Organizations</title>
+	<meta name="description" content="The organizations whose addresses commit to 9 repositories, by the domain of the address. Most commits in the last 12 months: bosteels.eu, 504 in 6 repositories.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="GitStats Portfolio: Organizations">
+	<meta property="og:description" content="The organizations whose addresses commit to 9 repositories, by the domain of the address. Most commits in the last 12 months: bosteels.eu, 504 in 6 repositories.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="GitStats Portfolio: Organizations">
+	<meta name="twitter:description" content="The organizations whose addresses commit to 9 repositories, by the domain of the address. Most commits in the last 12 months: bosteels.eu, 504 in 6 repositories.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="sortable.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="index.html" class="nav-brand">GitStats</a>
+            <ul>
+            <li><a href="index.html">GitStats Portfolio</a></li>
+            <li><a href="ai.html">AI-assisted commits</a></li><li><a href="organizations.html" class="active" aria-current="page">Organizations</a></li>
+            </ul>
+            <div class="nav-right">
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>Organizations</h1><p class="portfolio-subtitle">9 repositories &middot; generated by gitstats 2.12.2 on 2026-11-16 18:06:55</p><p class="section-note">Commits counted by the domain of the author&rsquo;s email address: <code>corp.google.com</code> and <code>google.com</code> both count under google.com. A domain only one person commits from is most often that person&rsquo;s own, and is counted apart, as are mail providers anyone can sign up for, hidden noreply addresses and bots.</p><p class="section-note">A domain says where an address is, not who paid for the work: people commit from personal addresses on paid time, and from work addresses on their own. These counts are lower bounds of what organizations do.</p><dl class="stat-tiles" style="--cols: 3; --cols-md: 3; --cols-sm: 2; --span-sm: 2"><div class="stat-tile"><dt>Organizations</dt><dd class="stat-value">2</dd><dd class="stat-note">with commits in the last 12 months, of 3</dd></div><div class="stat-tile"><dt>In the Most Repositories</dt><dd class="stat-value">bosteels<wbr>.eu</dd><dd class="stat-note">6 of 9 repositories</dd></div><div class="stat-tile"><dt>Largest Share</dt><dd class="stat-value">98.4%</dd><dd class="stat-note">of limited_content_classifier&rsquo;s commits come from organizations</dd></div></dl><h2>Across the repositories</h2><p class="section-note">The organizations with the most commits in the last 12 months, added up across the repositories, and the repositories they committed to.</p><div class="table-scroll"><table class="sortable" id="organizations"><tr><th>Organization</th><th class="num">Repositories</th><th class="num">Commits (12 mo)</th><th class="num">Commits</th><th>Committed to</th></tr><tr><td><a href="orgs/bosteels.eu.html">bosteels.eu</a></td><td class="num">6</td><td class="num">504</td><td class="num">652</td><td>centr-crawler-design, java-base-image, limited_content_classifier, mercator_data_processor and 2 more</td></tr><tr><td><a href="orgs/dnsbelgium.be.html">dnsbelgium.be</a></td><td class="num">1</td><td class="num">58</td><td class="num">1,006</td><td>mercator</td></tr><tr><td><a href="orgs/ucll.be.html">ucll.be</a></td><td class="num">1</td><td class="num">0</td><td class="num">196</td><td>mercator</td></tr></table></div><h2>By repository</h2><p class="section-note">How each repository&rsquo;s commits of the last four complete quarters (2025-Q4 to 2026-Q3) divide between kinds of address, the largest share from organizations first, and its organizations with the most commits in the last 12 months.</p><div class="table-scroll"><table class="sortable" id="organization-mix"><tr><th>Repository</th><th class="num">Commits</th><th class="num">Organizations</th><th class="num">One-person domains</th><th class="num">Personal email</th><th class="num">Hidden (noreply)</th><th class="num">Unknown</th><th class="num">Bots</th><th>Organizations, last 12 months</th></tr><tr><td><a href="limited_content_classifier/authors.html#commits_by_organization">limited_content_classifier</a></td><td class="num">62</td><td class="num" data-sort="0.983871">98.4%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.016129">1.6%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (61)</td></tr><tr><td><a href="mercator_data_processor/authors.html#commits_by_organization">mercator_data_processor</a></td><td class="num">62</td><td class="num" data-sort="0.967742">96.8%</td><td class="num" data-sort="0.032258">3.2%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (67)</td></tr><tr><td><a href="centr-crawler-design/authors.html#commits_by_organization">centr-crawler-design</a></td><td class="num">167</td><td class="num" data-sort="0.952096">95.2%</td><td class="num" data-sort="0.035928">3.6%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.011976">1.2%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (94)</td></tr><tr><td><a href="mercator/authors.html#commits_by_organization">mercator</a></td><td class="num">76</td><td class="num" data-sort="0.842105">84.2%</td><td class="num" data-sort="0.118421">11.8%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.026316">2.6%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.013158">1.3%</td><td><a href="orgs/dnsbelgium.be.html">dnsbelgium.be</a> (58)</td></tr><tr><td><a href="java-base-image/authors.html#commits_by_organization">java-base-image</a></td><td class="num">29</td><td class="num" data-sort="0.724138">72.4%</td><td class="num" data-sort="0.068966">6.9%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.206897">20.7%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.000000">0%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (32)</td></tr><tr><td><a href="screenshotter/authors.html#commits_by_organization">screenshotter</a></td><td class="num">116</td><td class="num" data-sort="0.362069">36.2%</td><td class="num" data-sort="0.017241">1.7%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.189655">19.0%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.431034">43.1%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (64)</td></tr><tr><td><a href="portal/authors.html#commits_by_organization">portal</a></td><td class="num">776</td><td class="num" data-sort="0.301546">30.2%</td><td class="num" data-sort="0.014175">1.4%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.195876">19.6%</td><td class="num" data-sort="0.000000">0%</td><td class="num" data-sort="0.488402">48.8%</td><td><a href="orgs/bosteels.eu.html">bosteels.eu</a> (186)</td></tr><tr><td><a href="dl_infra/index.html">dl_infra</a></td><td class="num">0</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td>&ndash;</td></tr><tr><td><a href="mercator-dashboard/index.html">mercator-dashboard</a></td><td class="num">0</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td class="num" data-sort="0">0%</td><td>&ndash;</td></tr></table></div><h2>Data</h2><p class="section-note">Every organization of every repository, and each repository&rsquo;s counts: <a href="organizations.json">organizations.json</a>, <a href="organizations.csv">organizations.csv</a>. Domains and counts only, never an address.</p></main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body>
+</html>

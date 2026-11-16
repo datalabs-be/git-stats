@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats - centr-crawler-design: Authors</title>
+	<meta name="description" content="centr-crawler-design: 172 commits by 3 authors, 2025 to 2026. A report made with gitstats.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="centr-crawler-design: Authors">
+	<meta property="og:description" content="centr-crawler-design: 172 commits by 3 authors, 2025 to 2026. A report made with gitstats.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="centr-crawler-design: Authors">
+	<meta name="twitter:description" content="centr-crawler-design: 172 commits by 3 authors, 2025 to 2026. A report made with gitstats.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="sortable.js"></script>
+	<script type="text/javascript" src="chart.umd.min.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+	<script>
+	// Chart.js reads colors once when a chart is built, so re-read the CSS
+	// variables whenever the theme switches. Datasets flagged `themed` follow --bar-color.
+	function applyChartTheme(chart) {
+		const text = getCSSVar('--chart-text');
+		const grid = getCSSVar('--chart-grid');
+		Chart.defaults.color = text;
+		Chart.defaults.borderColor = grid;
+		// axis ticks, legends and tooltips in the report's monospace, like its other numbers
+		Chart.defaults.font.family = getCSSVar('--font-mono');
+		Chart.defaults.font.size = 11;
+		if (!chart) return;
+		// Built charts keep the defaults they resolved, so set colors on each one.
+		Object.values(chart.options.scales).forEach(function(scale) {
+			scale.ticks.color = text;
+			scale.title.color = text;
+			// month axes draw gridlines only at their labelled years (see monthAxisGrid)
+			scale.grid.color = scale.ticks.callback === monthAxisTick ? monthAxisGrid : grid;
+			scale.border.color = grid;
+		});
+		chart.options.plugins.legend.labels.color = text;
+		const bar = getCSSVar('--bar-color');
+		chart.data.datasets.forEach(function(ds) {
+			if (ds.themed) { ds.backgroundColor = bar; ds.borderColor = bar; }
+			if (ds.colorVar) { ds.backgroundColor = ds.borderColor = getCSSVar(ds.colorVar); }
+			if (ds.series) {
+				const color = getCSSVar('--series-' + ds.series);
+				ds.borderColor = color;
+				ds.backgroundColor = color + '33';
+			}
+		});
+	}
+
+	document.addEventListener('themechange', function() {
+		applyChartTheme();
+		Object.values(Chart.instances).forEach(function(chart) {
+			applyChartTheme(chart);
+			chart.update('none');
+		});
+	});
+
+	// Marks drawn onto a chart (see _render_chartjs(annotations=...)):
+	//   bands  shaded x-ranges with a caption, e.g. a stretch of years without commits
+	//   peaks  a label above chosen bars
+	//   values a value label above every non-zero bar
+	// A band flagged `collapsed` stands for a stretch cut out of the axis: it is
+	// hatched, its caption runs up the band, and `axis` names it under the plot.
+	// Colors are read from CSS at draw time, so they follow the theme.
+	function bandEdges(chart, band) {
+		const x = chart.scales.x;
+		const half = x.type === 'category' && chart.data.labels.length > 1
+			? (x.getPixelForValue(1) - x.getPixelForValue(0)) / 2 : 0;
+		return [x.getPixelForValue(band.from) - half, x.getPixelForValue(band.to) + half];
+	}
+
+	const chartAnnotations = {
+		id: 'gsAnnotations',
+		beforeDatasetsDraw: function(chart, args, opts) {
+			const area = chart.chartArea, ctx = chart.ctx;
+			const height = area.bottom - area.top;
+			(opts.bands || []).forEach(function(band) {
+				const edges = bandEdges(chart, band), left = edges[0], right = edges[1];
+				ctx.save();
+				ctx.fillStyle = getCSSVar('--surface-color');
+				ctx.fillRect(left, area.top, right - left, height);
+				if (band.collapsed) {
+					// hatched: not drawn to scale
+					ctx.save();
+					ctx.beginPath();
+					ctx.rect(left, area.top, right - left, height);
+					ctx.clip();
+					ctx.strokeStyle = getCSSVar('--border-color');
+					ctx.beginPath();
+					for (let d = left - height; d < right; d += 8) {
+						ctx.moveTo(d, area.bottom); ctx.lineTo(d + height, area.top);
+					}
+					ctx.stroke();
+					ctx.restore();
+				}
+				ctx.strokeStyle = getCSSVar('--border-strong');
+				ctx.setLineDash([3, 3]);
+				ctx.beginPath();
+				ctx.moveTo(left, area.top); ctx.lineTo(left, area.bottom);
+				ctx.moveTo(right, area.top); ctx.lineTo(right, area.bottom);
+				ctx.stroke();
+				ctx.font = '11px ' + getCSSVar('--font-mono');
+				ctx.textAlign = 'center';
+				// the caption runs along the band's longer side
+				const room = band.collapsed ? height : right - left;
+				let text = band.text;
+				if (ctx.measureText(text).width > room - 8) text = band.short || '';
+				const width = ctx.measureText(text).width;
+				const taken = band.collapsed && barMarks(chart, opts).some(function(mark) {
+					return mark.onBand && mark.x + mark.half > left && mark.x - mark.half < right;
+				});
+				if (text && !taken && width <= room - 4 && (!band.collapsed || right - left >= 14)) {
+					ctx.translate((left + right) / 2, area.top + height / 2);
+					if (band.collapsed) {
+						ctx.rotate(-Math.PI / 2);
+						// clear the hatching behind the caption
+						ctx.fillStyle = getCSSVar('--surface-color');
+						ctx.fillRect(-width / 2 - 4, -7, width + 8, 14);
+						ctx.textBaseline = 'middle';
+					}
+					ctx.fillStyle = getCSSVar('--chart-text');
+					ctx.fillText(text, 0, 0);
+				}
+				ctx.restore();
+			});
+		},
+		// The years a collapsed band stands for, on the row of the tick labels,
+		// unless it would run into one of them (a narrow chart on a phone).
+		afterDraw: function(chart, args, opts) {
+			const x = chart.scales.x, ctx = chart.ctx;
+			(opts.bands || []).forEach(function(band) {
+				if (!band.collapsed || !band.axis) return;
+				const edges = bandEdges(chart, band), center = (edges[0] + edges[1]) / 2;
+				ctx.save();
+				ctx.font = '11px ' + getCSSVar('--font-mono');
+				const half = ctx.measureText(band.axis).width / 2;
+				const clash = x.ticks.some(function(tick, i) {
+					const label = Array.isArray(tick.label) ? tick.label.join(' ') : tick.label;
+					if (!label) return false;
+					const reach = half + ctx.measureText(String(label)).width / 2 + 6;
+					return Math.abs(x.getPixelForTick(i) - center) < reach;
+				});
+				if (!clash) {
+					const grid = x.options.grid;
+					ctx.fillStyle = getCSSVar('--chart-text');
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'top';
+					ctx.fillText(band.axis, center,
+						x.top + (grid.drawTicks ? grid.tickLength : 0) + x.options.ticks.padding);
+				}
+				ctx.restore();
+			});
+		},
+		afterDatasetsDraw: function(chart, args, opts) {
+			const ctx = chart.ctx;
+			barMarks(chart, opts).forEach(function(mark) {
+				ctx.save();
+				ctx.font = mark.font;
+				ctx.textAlign = 'center';
+				if (mark.onBand) {
+					// no room beside the band: clear its hatching behind the label
+					ctx.fillStyle = getCSSVar('--surface-color');
+					ctx.fillRect(mark.x - mark.half - 2, mark.y - 10, 2 * mark.half + 4, 13);
+				}
+				ctx.fillStyle = getCSSVar(mark.plain ? '--chart-text' : '--text-color');
+				ctx.fillText(mark.text, mark.x, mark.y);
+				ctx.restore();
+			});
+		}
+	};
+
+	// Where the labels above bars go: {text, plain, font, x, y, half, onBand}.
+	// A label stays inside the plot area and, when there is room, beside a
+	// collapsed band rather than on it; `onBand` marks the ones left on one.
+	function barMarks(chart, opts) {
+		const meta = chart.getDatasetMeta(0), ctx = chart.ctx, area = chart.chartArea;
+		const marks = (opts.peaks || []).slice();
+		if (opts.values) {
+			chart.data.datasets[0].data.forEach(function(v, i) {
+				if (v) marks.push({ index: i, text: String(v), plain: true });
+			});
+		}
+		const bands = (opts.bands || []).filter(function(band) { return band.collapsed; })
+			.map(function(band) { return bandEdges(chart, band); });
+		const placed = [];
+		marks.forEach(function(mark) {
+			const bar = meta.data[mark.index];
+			if (!bar) return;
+			const font = (mark.plain ? '' : '600 ') + '11px ' + getCSSVar('--font-mono');
+			ctx.save();
+			ctx.font = font;
+			const half = ctx.measureText(mark.text).width / 2;
+			ctx.restore();
+			const inside = function(x) { return Math.min(Math.max(x, area.left + half), area.right - half); };
+			let x = inside(bar.x);
+			bands.forEach(function(edges) {
+				if (bar.x >= edges[1]) x = inside(Math.max(x, edges[1] + half + 4));
+				else if (bar.x <= edges[0]) x = inside(Math.min(x, edges[0] - half - 4));
+			});
+			const onBand = bands.some(function(edges) {
+				return x + half > edges[0] && x - half < edges[1];
+			});
+			placed.push({ text: mark.text, plain: mark.plain, font: font, x: x, y: bar.y - 6,
+				half: half, onBand: onBand });
+		});
+		return placed;
+	}
+
+	// The slots standing in for a collapsed stretch are named after all of it
+	// ("2016 – 2023"), for tooltips; under the plot the annotation names it.
+	function isCollapsedLabel(label) {
+		return String(label).indexOf(' – ') !== -1;
+	}
+
+	function categoryTick(value) {
+		const label = this.getLabelForValue(value);
+		return isCollapsedLabel(label) ? '' : label;
+	}
+
+	// Ticks for a category axis of "YYYY-MM" months: the year at each January,
+	// thinned so labels never collide; short spans label every few months.
+	function monthAxisTick(value) {
+		const label = this.getLabelForValue(value);
+		if (isCollapsedLabel(label)) return '';
+		const n = this.chart.data.labels.length;
+		const width = Math.max(this.width, 1);
+		if (n <= 24) {
+			return value % Math.max(1, Math.ceil(n * 64 / width)) === 0 ? label : '';
+		}
+		if (String(label).slice(5) !== '01') return '';
+		const year = Number(String(label).slice(0, 4));
+		const step = Math.max(1, Math.ceil((n / 12) * 40 / width));
+		return year % step === 0 ? String(year) : '';
+	}
+
+	function monthAxisGrid(ctx) {
+		return ctx.tick && ctx.tick.label ? getCSSVar('--chart-grid') : 'transparent';
+	}
+
+	function formatChartDate(ms, unit) {
+		const d = new Date(ms);
+		const pad = function(n) { return (n < 10 ? '0' : '') + n; };
+		if (unit === 'year') return String(d.getFullYear());
+		if (unit === 'month') return d.getFullYear() + '-' + pad(d.getMonth() + 1);
+		return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+	}
+
+	// A long stretch without commits is cut out of a time axis and drawn as a
+	// short break: `gap` is {from, to, width} in milliseconds, and the stretch
+	// from..to takes `width` on the axis. squeezeTime() gives a timestamp its
+	// place on the cut axis, stretchTime() gives a place its timestamp back.
+	// Without a gap both leave the value alone.
+	function squeezeTime(gap, ms) {
+		if (!gap || ms <= gap.from) return ms;
+		if (ms >= gap.to) return ms - (gap.to - gap.from) + gap.width;
+		return gap.from + (ms - gap.from) / (gap.to - gap.from) * gap.width;
+	}
+
+	function stretchTime(gap, at) {
+		if (!gap || at <= gap.from) return at;
+		if (at >= gap.from + gap.width) return at + (gap.to - gap.from) - gap.width;
+		return gap.from + (at - gap.from) / gap.width * (gap.to - gap.from);
+	}
+
+	// A linear x-axis over millisecond timestamps, ticked on year (or month)
+	// boundaries, so gaps in history take up the space they really span;
+	// only a gap handed in as `gap` is cut short (see squeezeTime).
+	function timeAxis(xs, gap) {
+		var min = xs.length ? squeezeTime(gap, xs[0]) : undefined;
+		var max = xs.length ? squeezeTime(gap, xs[xs.length - 1]) : undefined;
+		// one point in time (a single commit) has no width: give it a month
+		// around it, or the point has no place on the axis and is not drawn
+		if (xs.length && min === max) {
+			min -= 15 * 864e5;
+			max += 15 * 864e5;
+		}
+		return {
+			type: 'linear',
+			min: min,
+			max: max,
+			afterBuildTicks: function(scale) {
+				const first = stretchTime(gap, scale.min), last = stretchTime(gap, scale.max);
+				const from = new Date(first), to = new Date(last);
+				const ticks = [];
+				// no tick inside the stretch that was cut out
+				const add = function(ms) {
+					if (!gap || ms < gap.from || ms >= gap.to) ticks.push({ value: squeezeTime(gap, ms) });
+				};
+				let unit = 'year';
+				if (to.getFullYear() - from.getFullYear() >= 2) {
+					for (let y = from.getFullYear() + 1; y <= to.getFullYear(); y++) {
+						add(new Date(y, 0, 1).getTime());
+					}
+				} else {
+					unit = 'month';
+					const d = new Date(from.getFullYear(), from.getMonth() + 1, 1);
+					for (; d.getTime() <= last; d.setMonth(d.getMonth() + 1)) {
+						add(d.getTime());
+					}
+				}
+				scale.dateUnit = ticks.length >= 2 ? unit : 'day';
+				if (ticks.length >= 2) scale.ticks = ticks;
+			},
+			ticks: {
+				maxRotation: 0,
+				autoSkipPadding: 12,
+				callback: function(value) {
+					return formatChartDate(stretchTime(gap, value), this.dateUnit);
+				}
+			}
+		};
+	}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="../index.html" class="nav-brand nav-up">&larr; GitStats Portfolio</a>
+            <ul>
+            <li><a href="index.html">General</a></li>
+            <li><a href="activity.html">Activity</a></li>
+            <li><a href="authors.html" class="active" aria-current="page">Authors</a></li>
+            <li><a href="ownership.html">Code Ownership</a></li>
+            <li><a href="hotspots.html">Hotspots</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="lines.html">Lines</a></li>
+            <li><a href="tags.html">Tags</a></li>
+            <li><a href="badges.html">Badges</a></li>
+            
+            </ul>
+            <div class="nav-right">
+            <a href="https://github.com/shenxianpeng/gitstats" class="nav-github" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>Authors</h1><dl class="stat-tiles" style="--cols: 5; --cols-md: 3; --span-md: 2; --cols-sm: 2; --span-sm: 2"><div class="stat-tile"><dt>Authors</dt><dd class="stat-value">3</dd><dd class="stat-note">no bot accounts</dd></div><div class="stat-tile"><dt>Active Authors</dt><dd class="stat-value">3</dd><dd class="stat-note">committed in the last 12 months</dd></div><div class="stat-tile"><dt>New Authors</dt><dd class="stat-value">2</dd><dd class="stat-note">first commit in the last 12 months</dd></div><div class="stat-tile"><dt>Top 2 Authors</dt><dd class="stat-value">96.5%</dd><dd class="stat-note">of all commits</dd></div><div class="stat-tile"><dt>AI-assisted Commits</dt><dd class="stat-value">0</dd><dd class="stat-note">no commit names an assistant</dd></div></dl>
+<h2 id="list_of_authors"><a href="#list_of_authors">List of authors</a></h2>
+
+<div class="table-scroll"><table class="authors sortable" id="authors"><tr><th>Author</th><th class="num">Commits (%)</th><th class="num">+ lines</th><th class="num">- lines</th><th>First commit</th><th>Last commit</th><th class="num">Age</th><th class="num">Active days</th><th class="num"># by commits</th></tr><tr><td>Maarten Bosteels</td><td class="num">154 (89.5%)<span class="share-bar share-bar-inline" aria-hidden="true"><span style="width: 100.0%"></span></span></td><td class="num stat-added">9,076</td><td class="num stat-removed">2,643</td><td class="nowrap">2025-10-23</td><td class="nowrap">2026-11-01</td><td class="nowrap num" title="373 days" data-sort="373">1.0 yr</td><td class="num">43</td><td class="num">1</td></tr><tr><td>woutbosteels</td><td class="num">12 (7.0%)<span class="share-bar share-bar-inline" aria-hidden="true"><span style="width: 7.8%"></span></span></td><td class="num stat-added">1,369</td><td class="num stat-removed">308</td><td class="nowrap">2026-01-30</td><td class="nowrap">2026-09-07</td><td class="nowrap num" title="220 days" data-sort="220">7 mo</td><td class="num">7</td><td class="num">2</td></tr><tr><td>maarten.bosteels</td><td class="num">6 (3.5%)<span class="share-bar share-bar-inline" aria-hidden="true"><span style="width: 3.9%"></span></span></td><td class="num stat-added">115</td><td class="num stat-removed">51</td><td class="nowrap">2026-01-31</td><td class="nowrap">2026-07-16</td><td class="nowrap num" title="165 days" data-sort="165">5 mo</td><td class="num">3</td><td class="num">3</td></tr></table></div><span id="commits_per_author"></span>
+<h2 id="contributor_timeline"><a href="#contributor_timeline">Contributor timeline</a></h2>
+
+<p class="section-note">One row per author: a square marks each month with commits (bigger means more), and the line runs from their first to their last active month. Bot accounts are grey.</p><div class="timeline-scroll"><div class="timeline"><div class="timeline-grid" aria-hidden="true"><span class="timeline-year" style="left: 21.429%">2026</span></div><div class="timeline-row" role="img" aria-label="Maarten Bosteels: 154 commits, 2025-10 to 2026-11"><span class="timeline-name">Maarten Bosteels</span><span class="timeline-count">154</span><span class="timeline-track"><span class="timeline-span" style="left: 3.571%; width: 92.857%"></span><span class="timeline-mark" style="left: 3.571%; --size: 9.4px" title="2025-10: 6 commits"></span><span class="timeline-mark" style="left: 10.714%; --size: 18.0px" title="2025-11: 66 commits"></span><span class="timeline-mark" style="left: 17.857%; --size: 10.2px" title="2025-12: 8 commits"></span><span class="timeline-mark" style="left: 25.000%; --size: 18.0px" title="2026-01: 42 commits"></span><span class="timeline-mark" style="left: 32.143%; --size: 9.4px" title="2026-02: 6 commits"></span><span class="timeline-mark" style="left: 39.286%; --size: 7.8px" title="2026-03: 3 commits"></span><span class="timeline-mark" style="left: 46.429%; --size: 7.1px" title="2026-04: 2 commits"></span><span class="timeline-mark" style="left: 60.714%; --size: 8.9px" title="2026-06: 5 commits"></span><span class="timeline-mark" style="left: 67.857%; --size: 8.4px" title="2026-07: 4 commits"></span><span class="timeline-mark" style="left: 75.000%; --size: 9.8px" title="2026-08: 7 commits"></span><span class="timeline-mark" style="left: 89.286%; --size: 7.8px" title="2026-10: 3 commits"></span><span class="timeline-mark" style="left: 96.429%; --size: 7.1px" title="2026-11: 2 commits"></span></span></div><div class="timeline-row" role="img" aria-label="woutbosteels: 12 commits, 2026-01 to 2026-09"><span class="timeline-name">woutbosteels</span><span class="timeline-count">12</span><span class="timeline-track"><span class="timeline-span" style="left: 25.000%; width: 57.143%"></span><span class="timeline-mark" style="left: 25.000%; --size: 6.2px" title="2026-01: 1 commit"></span><span class="timeline-mark" style="left: 67.857%; --size: 7.8px" title="2026-07: 3 commits"></span><span class="timeline-mark" style="left: 82.143%; --size: 10.2px" title="2026-09: 8 commits"></span></span></div><div class="timeline-row" role="img" aria-label="maarten.bosteels: 6 commits, 2026-01 to 2026-07"><span class="timeline-name">maarten.bosteels</span><span class="timeline-count">6</span><span class="timeline-track"><span class="timeline-span" style="left: 25.000%; width: 42.857%"></span><span class="timeline-mark" style="left: 25.000%; --size: 8.4px" title="2026-01: 4 commits"></span><span class="timeline-mark" style="left: 32.143%; --size: 6.2px" title="2026-02: 1 commit"></span><span class="timeline-mark" style="left: 67.857%; --size: 6.2px" title="2026-07: 1 commit"></span></span></div><div class="timeline-axis" aria-hidden="true"></div></div></div>
+<h2 id="contributor_growth"><a href="#contributor_growth">Contributor growth</a></h2>
+
+<p class="section-note">Contributors so far, month by month: each step up is a month in which someone made their first commit.</p><div class="chart-box" style="--chart-ratio: 4"><canvas id="chart-contributor-growth" role="img" aria-label="Line chart of the number of contributors over time, 2025-10 to 2026-11"></canvas></div>
+<script>
+(function() {
+  var ctx = document.getElementById('chart-contributor-growth').getContext('2d');
+  var labels = ["2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11"];
+  var gap = null;
+  applyChartTheme();
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{"label": "Contributors", "data": [1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], "stepped": true, "notes": ["+1 new", "", "", "+2 new", "", "", "", "", "", "", "", "", "", ""], "backgroundColor": getCSSVar('--bar-color'), "borderColor": getCSSVar('--bar-color'), "themed": true, "borderWidth": 1.5, "pointRadius": 0, "pointHoverRadius": 3}]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { afterLabel: function(item) {
+          return (item.dataset.notes || [])[item.dataIndex] || '';
+        } } }
+      },
+      scales: {
+        x: { ticks: { autoSkip: false, maxRotation: 0, callback: monthAxisTick }, grid: { color: monthAxisGrid } },
+        y: { beginAtZero: true, ticks: { precision: 0 } }
+      }
+    }
+  });
+})();
+</script>
+<span id="author_of_month"></span><span id="author_of_year"></span>
+<h2 id="top_author_per_year_and_month"><a href="#top_author_per_year_and_month">Top author per year and month</a></h2>
+
+<p class="section-note">Who made the most commits in each year and month, the runners-up, and how many people committed.</p><div class="table-scroll"><table class="sortable period-table" id="aoy"><tr><th>Year</th><th>Author</th><th class="num">Commits (%)</th><th class="unsortable">Next top 5</th><th class="num">Authors</th></tr><tr><td>2026</td><td>Maarten Bosteels</td><td class="num">74 (80.4% of 92)</td><td>woutbosteels, maarten.bosteels</td><td class="num">3</td></tr><tr><td>2025</td><td>Maarten Bosteels</td><td class="num">80 (100.0% of 80)</td><td></td><td class="num">1</td></tr></table></div><details class="table-details"><summary>Table: top author of each month (13 months with commits)</summary><div class="table-scroll"><table class="sortable period-table" id="aom"><tr><th>Month</th><th>Author</th><th class="num">Commits (%)</th><th class="unsortable">Next top 5</th><th class="num">Authors</th></tr><tr><td>2026-11</td><td>Maarten Bosteels</td><td class="num">2 (100.0% of 2)</td><td></td><td class="num">1</td></tr><tr><td>2026-10</td><td>Maarten Bosteels</td><td class="num">3 (100.0% of 3)</td><td></td><td class="num">1</td></tr><tr><td>2026-09</td><td>woutbosteels</td><td class="num">8 (100.0% of 8)</td><td></td><td class="num">1</td></tr><tr><td>2026-08</td><td>Maarten Bosteels</td><td class="num">7 (100.0% of 7)</td><td></td><td class="num">1</td></tr><tr><td>2026-07</td><td>Maarten Bosteels</td><td class="num">4 (50.0% of 8)</td><td>woutbosteels, maarten.bosteels</td><td class="num">3</td></tr><tr><td>2026-06</td><td>Maarten Bosteels</td><td class="num">5 (100.0% of 5)</td><td></td><td class="num">1</td></tr><tr><td>2026-04</td><td>Maarten Bosteels</td><td class="num">2 (100.0% of 2)</td><td></td><td class="num">1</td></tr><tr><td>2026-03</td><td>Maarten Bosteels</td><td class="num">3 (100.0% of 3)</td><td></td><td class="num">1</td></tr><tr><td>2026-02</td><td>Maarten Bosteels</td><td class="num">6 (85.7% of 7)</td><td>maarten.bosteels</td><td class="num">2</td></tr><tr><td>2026-01</td><td>Maarten Bosteels</td><td class="num">42 (89.4% of 47)</td><td>maarten.bosteels, woutbosteels</td><td class="num">3</td></tr><tr><td>2025-12</td><td>Maarten Bosteels</td><td class="num">8 (100.0% of 8)</td><td></td><td class="num">1</td></tr><tr><td>2025-11</td><td>Maarten Bosteels</td><td class="num">66 (100.0% of 66)</td><td></td><td class="num">1</td></tr><tr><td>2025-10</td><td>Maarten Bosteels</td><td class="num">6 (100.0% of 6)</td><td></td><td class="num">1</td></tr></table></div></details><span id="cumulated_added_lines_of_code_per_author"></span>
+<h2 id="cumulative_lines_added_per_author"><a href="#cumulative_lines_added_per_author">Cumulative lines added per author</a></h2>
+
+<p class="section-note">Lines added over time by each author; the top 5 are in color, the rest in grey.</p><div class="chart-box has-legend" style="--chart-ratio: 3"><canvas id="chart-loc-by-author" role="img" aria-label="Line chart of lines of code added by the top authors over time, 2025-10-23 to 2026-11-01"></canvas></div>
+<script>
+(function() {
+  var ctx = document.getElementById('chart-loc-by-author').getContext('2d');
+  var labels = [1761245755000, 1761487432000, 1761495314000, 1761495593000, 1761745473000, 1761931624000, 1761993509000, 1761993602000, 1761993639000, 1761994933000, 1761994972000, 1761995347000, 1762000430000, 1762000652000, 1762000712000, 1762000770000, 1762000931000, 1762001128000, 1762001465000, 1762001683000, 1762001955000, 1762002131000, 1762002953000, 1762003071000, 1762003137000, 1762003580000, 1762004370000, 1762004467000, 1762004717000, 1762004786000, 1762009346000, 1762009586000, 1762010559000, 1762010578000, 1762011099000, 1762011133000, 1762011285000, 1762011608000, 1762017704000, 1762017733000, 1762023205000, 1762024583000, 1762027931000, 1762038614000, 1762038643000, 1762039129000, 1762096963000, 1762108811000, 1762287590000, 1763197230000, 1763197321000, 1763197343000, 1763197605000, 1763197807000, 1763201053000, 1763201070000, 1763201129000, 1763201223000, 1763201256000, 1763201316000, 1763201339000, 1763201419000, 1763238128000, 1763238226000, 1763238257000, 1763287291000, 1763288272000, 1763821262000, 1763821307000, 1763821452000, 1763821729000, 1763825562000, 1764960673000, 1764960792000, 1765033226000, 1765033477000, 1765033544000, 1766326355000, 1766330653000, 1766506932000, 1767258936000, 1767882731000, 1767883412000, 1767884030000, 1767888732000, 1767889067000, 1767889257000, 1767896989000, 1767897519000, 1767897624000, 1767898214000, 1767898302000, 1767898424000, 1767898479000, 1767898553000, 1767898699000, 1768039502000, 1768062713000, 1768064187000, 1768421714000, 1768421727000, 1768421746000, 1768592521000, 1768731451000, 1768745818000, 1768764248000, 1768862898000, 1768949474000, 1769352121000, 1769454116000, 1769776606000, 1769855385000, 1769855438000, 1769859043000, 1769864060000, 1769865593000, 1769865705000, 1769866216000, 1769866618000, 1769877165000, 1769877468000, 1769877585000, 1769877676000, 1769878520000, 1769878602000, 1769880758000, 1769884756000, 1770541599000, 1770559907000, 1770561692000, 1772217669000, 1772272134000, 1772272167000, 1772306074000, 1772361247000, 1773317215000, 1774801391000, 1775901527000, 1775901678000, 1781814528000, 1781814609000, 1781814955000, 1781815035000, 1782064612000, 1783890118000, 1783890142000, 1784196736000, 1784197965000, 1784209884000, 1784646698000, 1784646804000, 1785418539000, 1785577689000, 1785677107000, 1785677112000, 1785680297000, 1788085325000, 1788092412000, 1788092438000, 1788253529000, 1788349112000, 1788349315000, 1788349617000, 1788357002000, 1788365814000, 1788613868000, 1788784444000, 1791044218000, 1791045348000, 1791745483000, 1793546683000, 1793546694000];
+  var gap = null;
+  applyChartTheme();
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: (function(xs, sets) {
+        sets.forEach(function(ds) {
+          ds.data = ds.data.map(function(y, i) {
+            return { x: squeezeTime(gap, xs[i]), y: y };
+          });
+        });
+        return sets;
+      })(labels, [{"label": "Maarten Bosteels", "data": [1, 203, 239, 263, 1250, 1541, 1654, 1782, 1785, 1843, 1844, 1847, 1858, 1859, 1860, 1861, 1862, 1863, 1869, 1882, 1883, 1920, 1927, 1931, 1933, 1938, 1972, 1972, 1978, 2001, 2003, 2004, 2042, 2137, 2138, 2139, 2139, 2151, 2157, 2159, 2234, 2239, 2250, 2255, 2263, 2263, 2426, 2465, 2828, 2962, 2963, 2993, 3000, 3007, 3012, 3016, 3094, 3102, 3111, 3114, 3114, 3116, 3243, 3281, 3317, 3319, 3335, 3349, 3354, 3631, 3672, 3756, 3786, 3866, 3899, 4397, 4400, 4525, 4532, 5070, 5310, 5391, 5412, 5417, 5506, 5509, 5510, 5548, 5550, 5551, 5554, 5558, 5559, 5562, 5566, 5570, 5662, 5747, 5798, 5896, 5902, 5933, 6037, 6304, 6382, 6621, 6662, 6663, 6757, 6758, 6758, 6763, 6817, 6824, 6824, 6832, 6832, 6847, 6847, 6856, 6870, 6879, 6884, 6895, 6900, 6941, 6941, 6950, 6950, 6991, 7073, 7074, 7195, 7196, 7197, 7199, 7885, 7982, 8117, 8127, 8129, 8133, 8134, 8351, 8431, 8432, 8440, 8440, 8440, 8440, 8440, 8453, 8454, 8455, 8471, 8475, 8975, 9034, 9035, 9035, 9035, 9035, 9035, 9035, 9035, 9035, 9035, 9040, 9043, 9047, 9075, 9076], "borderColor": getCSSVar('--series-1'), "backgroundColor": getCSSVar('--series-1') + '33', "series": 1, "fill": false, "tension": 0.1, "pointRadius": 0, "pointHoverRadius": 3, "borderWidth": 1.5, "order": 0, "stepped": true}, {"label": "woutbosteels", "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 62, 109, 109, 109, 109, 109, 109, 109, 109, 109, 116, 116, 1289, 1347, 1357, 1367, 1368, 1369, 1369, 1369, 1369, 1369, 1369], "borderColor": getCSSVar('--series-2'), "backgroundColor": getCSSVar('--series-2') + '33', "series": 2, "fill": false, "tension": 0.1, "pointRadius": 0, "pointHoverRadius": 3, "borderWidth": 1.5, "order": 0, "stepped": true}, {"label": "maarten.bosteels", "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 25, 34, 34, 38, 38, 38, 38, 38, 38, 38, 38, 53, 53, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115], "borderColor": getCSSVar('--series-3'), "backgroundColor": getCSSVar('--series-3') + '33', "series": 3, "fill": false, "tension": 0.1, "pointRadius": 0, "pointHoverRadius": 3, "borderWidth": 1.5, "order": 0, "stepped": true}])
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: true, labels: { usePointStyle: true, pointStyle: 'line', filter: function(item) { return item.datasetIndex < 5; } } },
+        tooltip: { callbacks: { title: function(items) {
+          return items.length ? formatChartDate(stretchTime(gap, items[0].parsed.x)) : '';
+        } } }
+      },
+      scales: {
+        x: timeAxis(labels, gap),
+        y: { beginAtZero: true, ticks: { precision: 0 } }
+      }
+    }
+  });
+})();
+</script>
+
+<h2 id="commits_by_organization"><a href="#commits_by_organization">Commits by organization</a></h2>
+
+<p class="section-note">164 of 172 commits (95.3%) come from an address at 1 organization, counted by the domain of the address and committed from by two people or more. Domains of one person (most often that person's own), personal mail providers, hidden noreply addresses and bots are counted apart, below.</p><p class="section-note">The domain says where an address is, not who paid for the work: people commit from personal addresses on paid time, and from work addresses on their own.</p><div class="table-scroll"><table class="share-table"><tr><th>Organization</th><th class="num">Commits</th><th class="num">Share</th><th class="unsortable"><span class="visually-hidden">Bar</span></th><th class="num">Last 12 months</th><th class="num">Addresses</th><th>First commit</th><th>Last commit</th></tr><tr><td>bosteels.eu</td><td class="num">164</td><td class="num">95.3%</td><td class="share-cell"><span class="share-bar" aria-hidden="true"><span style="width: 100.0%"></span></span></td><td class="num">94</td><td class="num">2</td><td class="nowrap">2025-10-26</td><td class="nowrap">2026-11-01</td></tr></table></div>
+<h3 id="where_the_commits_come_from,_by_quarter"><a href="#where_the_commits_come_from,_by_quarter">Where the commits come from, by quarter</a></h3>
+
+<div class="table-scroll"><table class="share-table"><tr><th>Quarter</th><th class="num">Commits</th><th class="num">Organizations</th><th class="num">One-person domains</th><th class="num">Personal email</th><th class="num">Hidden (noreply)</th><th class="num">Unknown</th><th class="num">Bots</th></tr><tr><td class="nowrap">2026-Q4</td><td class="num">5</td><td class="num">100.0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td></tr><tr><td class="nowrap">2026-Q3</td><td class="num">23</td><td class="num">95.7%</td><td class="num">4.3%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td></tr><tr><td class="nowrap">2026-Q2</td><td class="num">7</td><td class="num">100.0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td></tr><tr><td class="nowrap">2026-Q1</td><td class="num">57</td><td class="num">91.2%</td><td class="num">8.8%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td><td class="num">0%</td></tr><tr><td class="nowrap">2025-Q4</td><td class="num">80</td><td class="num">97.5%</td><td class="num">0%</td><td class="num">0%</td><td class="num">2.5%</td><td class="num">0%</td><td class="num">0%</td></tr></table></div><span id="commits_by_domains"></span>
+<h2 id="commits_by_domain"><a href="#commits_by_domain">Commits by domain</a></h2>
+
+<div class="table-scroll"><table class="share-table"><tr><th>Domain</th><th class="num">Commits</th><th class="num">Share</th><th class="unsortable"><span class="visually-hidden">Bar</span></th></tr><tr><td>bosteels.eu</td><td class="num">164</td><td class="num">95.3%</td><td class="share-cell"><span class="share-bar" aria-hidden="true"><span style="width: 100.0%"></span></span></td></tr><tr><td>dnsbelgium.be</td><td class="num">6</td><td class="num">3.5%</td><td class="share-cell"><span class="share-bar" aria-hidden="true"><span style="width: 3.7%"></span></span></td></tr><tr><td>users.noreply.github.com</td><td class="num">2</td><td class="num">1.2%</td><td class="share-cell"><span class="share-bar" aria-hidden="true"><span style="width: 1.2%"></span></span></td></tr></table></div></main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body></html>

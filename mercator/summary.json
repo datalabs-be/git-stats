@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:55+01:00",
+  "name": "mercator",
+  "report_path": "mercator/index.html",
+  "first_commit": "2022-03-16 12:43:19",
+  "last_commit": "2026-11-03 17:39:31",
+  "age_days": 1694,
+  "active_days": 343,
+  "total_commits": 1399,
+  "total_authors": 15,
+  "active_authors_12mo": 4,
+  "commits_last_12mo": 75,
+  "total_files": 428,
+  "total_lines": 136075,
+  "lines_added": 460621,
+  "lines_removed": 324505,
+  "total_tags": 0,
+  "era": "quiet",
+  "top_authors": [
+    {
+      "name": "Maarten Bosteels",
+      "commits": 400
+    },
+    {
+      "name": "Ward Segers",
+      "commits": 293
+    },
+    {
+      "name": "tarsb",
+      "commits": 130
+    },
+    {
+      "name": "bbram00648",
+      "commits": 121
+    },
+    {
+      "name": "Quentin Loos",
+      "commits": 112
+    }
+  ],
+  "author_commits": {
+    "Pieter Vandepitte": 110,
+    "Maarten Bosteels": 400,
+    "vandepitte": 1,
+    "Ward Segers": 293,
+    "bbram00648": 121,
+    "vividq": 2,
+    "Bram Massant": 20,
+    "tarsb": 130,
+    "Kevin J": 5,
+    "VanBenedenMaarten": 89,
+    "TarsB": 12,
+    "Dieter Delagrange": 1,
+    "Johan Heylen": 8,
+    "Quentin Loos": 112,
+    "Aroen van Remmen": 92
+  },
+  "commits_by_year": {
+    "2022": 349,
+    "2023": 472,
+    "2024": 109,
+    "2025": 395,
+    "2026": 74
+  },
+  "ai_assisted": {
+    "commits": 3,
+    "authored": 2,
+    "assistants": {
+      "GitHub Copilot": 3
+    },
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 1,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 2,
+      "2026-11": 0
+    },
+    "commits_by_month": {
+      "2024-12": 4,
+      "2025-01": 31,
+      "2025-02": 64,
+      "2025-03": 99,
+      "2025-04": 73,
+      "2025-05": 51,
+      "2025-06": 34,
+      "2025-07": 26,
+      "2025-08": 1,
+      "2025-09": 2,
+      "2025-10": 11,
+      "2025-11": 2,
+      "2025-12": 1,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 3,
+      "2026-05": 2,
+      "2026-06": 9,
+      "2026-07": 11,
+      "2026-08": 0,
+      "2026-09": 37,
+      "2026-10": 10,
+      "2026-11": 2
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 1399,
+    "by_kind": {
+      "organization": 1202,
+      "one_person": 17,
+      "personal": 130,
+      "hidden": 46,
+      "unknown": 1,
+      "bot": 3
+    },
+    "organization_count": 2,
+    "last_12mo_from": "2025-12",
+    "top": [
+      {
+        "organization": "dnsbelgium.be",
+        "commits": 1006,
+        "commits_last_12mo": 58,
+        "addresses": 9,
+        "first_commit": "2022-03-16",
+        "last_commit": "2026-11-03"
+      },
+      {
+        "organization": "ucll.be",
+        "commits": 196,
+        "commits_last_12mo": 0,
+        "addresses": 2,
+        "first_commit": "2023-03-30",
+        "last_commit": "2025-04-16"
+      }
+    ],
+    "quarters": {
+      "2024-Q4": {
+        "organization": 59,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2025-Q1": {
+        "organization": 191,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 3,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2025-Q2": {
+        "organization": 157,
+        "one_person": 1,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2025-Q3": {
+        "organization": 29,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2025-Q4": {
+        "organization": 10,
+        "one_person": 4,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q2": {
+        "organization": 14,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q3": {
+        "organization": 40,
+        "one_person": 5,
+        "personal": 0,
+        "hidden": 2,
+        "unknown": 0,
+        "bot": 1
+      },
+      "2026-Q4": {
+        "organization": 4,
+        "one_person": 5,
+        "personal": 0,
+        "hidden": 1,
+        "unknown": 0,
+        "bot": 2
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 72,
+    "authors": 4,
+    "new_authors": 1,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 1396,
+    "commits_by_year": {
+      "2022": 349,
+      "2023": 472,
+      "2024": 109,
+      "2025": 395,
+      "2026": 71
+    },
+    "active_days": 342
+  },
+  "timezones": {
+    "+0000": 4,
+    "+0100": 388,
+    "+0200": 1007
+  },
+  "source_lines": {
+    "added": 493110,
+    "current": 136067
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:54+01:00",
+  "name": "dl_infra",
+  "report_path": "dl_infra/index.html",
+  "first_commit": "2026-10-24 10:57:59",
+  "last_commit": "2026-11-14 13:27:43",
+  "age_days": 22,
+  "active_days": 6,
+  "total_commits": 14,
+  "total_authors": 1,
+  "active_authors_12mo": 1,
+  "commits_last_12mo": 14,
+  "total_files": 117,
+  "total_lines": 3849,
+  "lines_added": 4336,
+  "lines_removed": 454,
+  "total_tags": 0,
+  "era": "birth",
+  "top_authors": [
+    {
+      "name": "maarten.bosteels",
+      "commits": 14
+    }
+  ],
+  "author_commits": {
+    "maarten.bosteels": 14
+  },
+  "commits_by_year": {
+    "2026": 14
+  },
+  "ai_assisted": {
+    "commits": 0,
+    "authored": 0,
+    "assistants": {},
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 0
+    },
+    "commits_by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 7,
+      "2026-11": 7
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 14,
+    "by_kind": {
+      "organization": 0,
+      "one_person": 14,
+      "personal": 0,
+      "hidden": 0,
+      "unknown": 0,
+      "bot": 0
+    },
+    "organization_count": 0,
+    "last_12mo_from": "2025-12",
+    "top": [],
+    "quarters": {
+      "2026-Q4": {
+        "organization": 0,
+        "one_person": 14,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 14,
+    "authors": 1,
+    "new_authors": 1,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 14,
+    "commits_by_year": {
+      "2026": 14
+    },
+    "active_days": 6
+  },
+  "timezones": {
+    "+0100": 9,
+    "+0200": 5
+  },
+  "source_lines": {
+    "added": 4336,
+    "current": 3849
+  }
+}

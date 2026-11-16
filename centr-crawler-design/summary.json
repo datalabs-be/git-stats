@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:54+01:00",
+  "name": "centr-crawler-design",
+  "report_path": "centr-crawler-design/index.html",
+  "first_commit": "2025-10-23 20:55:55",
+  "last_commit": "2026-11-01 16:24:54",
+  "age_days": 374,
+  "active_days": 49,
+  "total_commits": 172,
+  "total_authors": 3,
+  "active_authors_12mo": 3,
+  "commits_last_12mo": 100,
+  "total_files": 157,
+  "total_lines": 7458,
+  "lines_added": 10560,
+  "lines_removed": 3002,
+  "total_tags": 0,
+  "era": "steady",
+  "top_authors": [
+    {
+      "name": "Maarten Bosteels",
+      "commits": 154
+    },
+    {
+      "name": "woutbosteels",
+      "commits": 12
+    },
+    {
+      "name": "maarten.bosteels",
+      "commits": 6
+    }
+  ],
+  "author_commits": {
+    "Maarten Bosteels": 154,
+    "woutbosteels": 12,
+    "maarten.bosteels": 6
+  },
+  "commits_by_year": {
+    "2025": 80,
+    "2026": 92
+  },
+  "ai_assisted": {
+    "commits": 0,
+    "authored": 0,
+    "assistants": {},
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 0
+    },
+    "commits_by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 6,
+      "2025-11": 66,
+      "2025-12": 8,
+      "2026-01": 47,
+      "2026-02": 7,
+      "2026-03": 3,
+      "2026-04": 2,
+      "2026-05": 0,
+      "2026-06": 5,
+      "2026-07": 8,
+      "2026-08": 7,
+      "2026-09": 8,
+      "2026-10": 3,
+      "2026-11": 2
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 172,
+    "by_kind": {
+      "organization": 164,
+      "one_person": 6,
+      "personal": 0,
+      "hidden": 2,
+      "unknown": 0,
+      "bot": 0
+    },
+    "organization_count": 1,
+    "last_12mo_from": "2025-12",
+    "top": [
+      {
+        "organization": "bosteels.eu",
+        "commits": 164,
+        "commits_last_12mo": 94,
+        "addresses": 2,
+        "first_commit": "2025-10-26",
+        "last_commit": "2026-11-01"
+      }
+    ],
+    "quarters": {
+      "2025-Q4": {
+        "organization": 78,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 2,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q1": {
+        "organization": 52,
+        "one_person": 5,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q2": {
+        "organization": 7,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q3": {
+        "organization": 22,
+        "one_person": 1,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q4": {
+        "organization": 5,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 0,
+        "unknown": 0,
+        "bot": 0
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 100,
+    "authors": 3,
+    "new_authors": 2,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 172,
+    "commits_by_year": {
+      "2025": 80,
+      "2026": 92
+    },
+    "active_days": 49
+  },
+  "timezones": {
+    "+0100": 137,
+    "+0200": 35
+  },
+  "source_lines": {
+    "added": 10560,
+    "current": 7458
+  }
+}

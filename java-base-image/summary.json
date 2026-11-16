@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "generated_by": "gitstats 2.12.2",
+  "generated_at": "2026-11-16T18:06:54+01:00",
+  "name": "java-base-image",
+  "report_path": "java-base-image/index.html",
+  "first_commit": "2026-06-13 17:01:22",
+  "last_commit": "2026-11-14 14:24:33",
+  "age_days": 154,
+  "active_days": 18,
+  "total_commits": 45,
+  "total_authors": 4,
+  "active_authors_12mo": 4,
+  "commits_last_12mo": 45,
+  "total_files": 15,
+  "total_lines": 418,
+  "lines_added": 622,
+  "lines_removed": 194,
+  "total_tags": 29,
+  "era": "birth",
+  "top_authors": [
+    {
+      "name": "Maarten Bosteels",
+      "commits": 36
+    },
+    {
+      "name": "woutbosteels",
+      "commits": 3
+    },
+    {
+      "name": "maarten.bosteels",
+      "commits": 2
+    },
+    {
+      "name": "maartenbosteels",
+      "commits": 1
+    }
+  ],
+  "author_commits": {
+    "Maarten Bosteels": 36,
+    "maartenbosteels": 1,
+    "maarten.bosteels": 2,
+    "woutbosteels": 3
+  },
+  "commits_by_year": {
+    "2026": 45
+  },
+  "ai_assisted": {
+    "commits": 4,
+    "authored": 3,
+    "assistants": {
+      "GitHub Copilot": 4
+    },
+    "by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0,
+      "2026-11": 4
+    },
+    "commits_by_month": {
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 8,
+      "2026-07": 7,
+      "2026-08": 9,
+      "2026-09": 5,
+      "2026-10": 5,
+      "2026-11": 11
+    }
+  },
+  "organizations": {
+    "description": "Commits by the domain of the author's email address. Mail providers anyone can sign up for count as personal, code hosts' private noreply addresses as hidden, CI accounts and accounts named [bot] as bots, and a domain only one person commits from as one_person. A domain says where an address is, not who paid for the work.",
+    "commits": 45,
+    "by_kind": {
+      "organization": 32,
+      "one_person": 2,
+      "personal": 0,
+      "hidden": 8,
+      "unknown": 0,
+      "bot": 3
+    },
+    "organization_count": 1,
+    "last_12mo_from": "2025-12",
+    "top": [
+      {
+        "organization": "bosteels.eu",
+        "commits": 32,
+        "commits_last_12mo": 32,
+        "addresses": 2,
+        "first_commit": "2026-06-13",
+        "last_commit": "2026-11-14"
+      }
+    ],
+    "quarters": {
+      "2026-Q2": {
+        "organization": 7,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 1,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q3": {
+        "organization": 14,
+        "one_person": 2,
+        "personal": 0,
+        "hidden": 5,
+        "unknown": 0,
+        "bot": 0
+      },
+      "2026-Q4": {
+        "organization": 11,
+        "one_person": 0,
+        "personal": 0,
+        "hidden": 2,
+        "unknown": 0,
+        "bot": 3
+      }
+    }
+  },
+  "people_last_12mo": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "commits": 42,
+    "authors": 4,
+    "new_authors": 4,
+    "half_of_commits": 1
+  },
+  "humans": {
+    "commits": 42,
+    "commits_by_year": {
+      "2026": 42
+    },
+    "active_days": 18
+  },
+  "timezones": {
+    "+0000": 4,
+    "+0100": 8,
+    "+0200": 33
+  },
+  "source_lines": {
+    "added": 623,
+    "current": 418
+  }
+}

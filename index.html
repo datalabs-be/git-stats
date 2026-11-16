@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GitStats Portfolio</title>
+	<meta name="description" content="Reports made with gitstats for 9 repositories, 2,792 commits: mercator, portal, centr-crawler-design, screenshotter and more.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="GitStats">
+	<meta property="og:title" content="GitStats Portfolio">
+	<meta property="og:description" content="Reports made with gitstats for 9 repositories, 2,792 commits: mercator, portal, centr-crawler-design, screenshotter and more.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="GitStats Portfolio">
+	<meta name="twitter:description" content="Reports made with gitstats for 9 repositories, 2,792 commits: mercator, portal, centr-crawler-design, screenshotter and more.">
+	<!-- Apply theme before CSS loads to prevent flash of unstyled content -->
+	<script>(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+	<link rel="stylesheet" href="gitstats.css" type="text/css">
+	<meta name="generator" content="GitStats 2.12.2">
+	<script type="text/javascript" src="sortable.js"></script>
+	<script>
+	function getCSSVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+	function setTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme);
+		updateThemeIcon(theme);
+		document.dispatchEvent(new Event('themechange'));
+	}
+
+	function toggleTheme() {
+		const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		try { localStorage.setItem('theme', newTheme); } catch (e) {}
+		setTheme(newTheme);
+	}
+
+	function updateThemeIcon(theme) {
+		const button = document.getElementById('theme-toggle');
+		if (button) {
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		}
+	}
+
+	// Follow OS theme changes until the user picks one with the toggle.
+	(function() {
+		const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+		if (!query || !query.addEventListener) return;
+		query.addEventListener('change', function(e) {
+			let stored = null;
+			try { stored = localStorage.getItem('theme'); } catch (err) {}
+			if (stored !== 'light' && stored !== 'dark') setTheme(e.matches ? 'dark' : 'light');
+		});
+	})();
+
+	// The nav scrolls sideways when it does not fit; start with the current page in view.
+	function revealCurrentNavItem() {
+		const current = document.querySelector('.nav a.active');
+		if (!current) return;
+		const list = current.closest('ul');
+		const item = current.getBoundingClientRect(), box = list.getBoundingClientRect();
+		list.scrollLeft += item.left - box.left - (box.width - item.width) / 2;
+	}
+
+	// Wide tables scroll sideways on phones, with the first column pinned; mark
+	// the ones that actually overflow so only they draw the pinned column's divider.
+	function watchScrollBoxes() {
+		if (!window.ResizeObserver) return;
+		const observer = new ResizeObserver(function(entries) {
+			entries.forEach(function(entry) {
+				const box = entry.target;
+				box.classList.toggle('is-scrollable', box.scrollWidth > box.clientWidth + 1);
+			});
+		});
+		document.querySelectorAll('.table-scroll, .timeline-scroll').forEach(function(box) {
+			observer.observe(box);
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+		revealCurrentNavItem();
+		watchScrollBoxes();
+	});
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+            <nav class="nav" aria-label="Pages">
+            <a href="index.html" class="nav-brand">GitStats</a>
+            <ul>
+            <li><a href="index.html" class="active" aria-current="page">GitStats Portfolio</a></li>
+            <li><a href="ai.html">AI-assisted commits</a></li><li><a href="organizations.html">Organizations</a></li>
+            </ul>
+            <div class="nav-right">
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to dark mode"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+            </div>
+            </nav>
+<main id="main">
+            <h1>GitStats Portfolio</h1><p class="portfolio-subtitle">9 repositories &middot; generated by gitstats 2.12.2 on 2026-11-16 18:06:55</p><dl class="stat-tiles" style="--cols: 4; --cols-md: 2; --cols-sm: 2"><div class="stat-tile"><dt>Repositories</dt><dd class="stat-value">9</dd><dd class="stat-note">9 active in the last 12 months</dd></div><div class="stat-tile"><dt>Commits</dt><dd class="stat-value">2,792</dd><dd class="stat-note">1,233 in the last 12 months</dd></div><div class="stat-tile"><dt>Authors</dt><dd class="stat-value">19</dd><dd class="stat-note">distinct, across all repositories</dd></div><div class="stat-tile"><dt>Lines of Code</dt><dd class="stat-value">188,902</dd><dd class="stat-note">all repositories at HEAD</dd></div></dl><p class="more-link"><a href="ai.html">AI-assisted commits, quarter by quarter &rarr;</a></p><p class="more-link"><a href="organizations.html">Organizations, by the domains of their commit addresses &rarr;</a></p><h2>Repositories</h2><div class="table-scroll"><table class="sortable" id="portfolio"><tr><th>Repository</th><th>Health</th><th class="num">Commits</th><th class="num">Authors</th><th class="num">Active (12 mo)</th><th class="num">Files</th><th class="num">Lines of Code</th><th>Last Commit</th><th>Since</th></tr><tr><td><a href="mercator/index.html">mercator</a></td><td><span class="history-era history-era-quiet">quiet</span></td><td class="num">1,399</td><td class="num">15</td><td class="num">4</td><td class="num">428</td><td class="num">136,075</td><td>2026-11-03</td><td>2022</td></tr><tr><td><a href="portal/index.html">portal</a></td><td><span class="history-era history-era-steady">steady</span></td><td class="num">861</td><td class="num">3</td><td class="num">3</td><td class="num">235</td><td class="num">12,789</td><td>2026-11-15</td><td>2025</td></tr><tr><td><a href="centr-crawler-design/index.html">centr-crawler-design</a></td><td><span class="history-era history-era-steady">steady</span></td><td class="num">172</td><td class="num">3</td><td class="num">3</td><td class="num">157</td><td class="num">7,458</td><td>2026-11-01</td><td>2025</td></tr><tr><td><a href="screenshotter/index.html">screenshotter</a></td><td><span class="history-era history-era-steady">steady</span></td><td class="num">169</td><td class="num">3</td><td class="num">3</td><td class="num">75</td><td class="num">4,162</td><td>2026-11-14</td><td>2025</td></tr><tr><td><a href="mercator_data_processor/index.html">mercator_data_processor</a></td><td><span class="history-era history-era-birth">birth</span></td><td class="num">69</td><td class="num">3</td><td class="num">3</td><td class="num">101</td><td class="num">7,707</td><td>2026-11-15</td><td>2026</td></tr><tr><td><a href="limited_content_classifier/index.html">limited_content_classifier</a></td><td><span class="history-era history-era-birth">birth</span></td><td class="num">62</td><td class="num">2</td><td class="num">2</td><td class="num">44</td><td class="num">14,121</td><td>2026-03-09</td><td>2026</td></tr><tr><td><a href="java-base-image/index.html">java-base-image</a></td><td><span class="history-era history-era-birth">birth</span></td><td class="num">45</td><td class="num">4</td><td class="num">4</td><td class="num">15</td><td class="num">418</td><td>2026-11-14</td><td>2026</td></tr><tr><td><a href="dl_infra/index.html">dl_infra</a></td><td><span class="history-era history-era-birth">birth</span></td><td class="num">14</td><td class="num">1</td><td class="num">1</td><td class="num">117</td><td class="num">3,849</td><td>2026-11-14</td><td>2026</td></tr><tr><td><a href="mercator-dashboard/index.html">mercator-dashboard</a></td><td><span class="history-era history-era-birth">birth</span></td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">78</td><td class="num">2,323</td><td>2026-11-11</td><td>2026</td></tr></table></div><p class="section-note">Authors are people: accounts named &hellip;[bot] are left out, so a report, which counts them, can say more. Active: those whose last commit is in the 12 months up to the report.</p></main>
+<footer class="footer"><span class="footer-generated">Generated by <a href="https://github.com/shenxianpeng/gitstats" target="_blank" rel="noopener">gitstats</a></span></footer>
+</body>
+</html>
